@@ -67,5 +67,33 @@
 
     //Two different types of transport layer protocols
         //UDP
+            //User Datagram Protocol
+            //HTTP uses TCP and not UDP
+            //UDP is incredibly light weight 
+                //8 bytes
+            //UDP is connectionless
+                //You don't have to wait for the connection to be established
+                //Client can just start talking to server right away and send data
+            //Consistency
+                //UDP will send data no matter what
+                //Packet loss? If there is packet loss, UDP will keep on sending data
+                //What if network is congested? UDP doesn't care. It will just keep sending packets and make network more congested
+                //Packets out of order? UDP doesn't care.
+            //The upside to UDP is that it is very FAST
+            //Headers are incredibly small
+            //You don't have to bother to set up a connection to start. You just send data.
+            //Its consistent in the way it sends data. Its going to always send data. 
+            //You can count on it always acting the same. 
 
+            //Use cases:
+                //UDP is typically used for video games or real time communication
+                //Gaming - your character stutters. Your client data is sending to the server but not reaching the server.
+                    //Suddenly the server gets the data and updates it
+                //Video chat - you are talking, and things seem normal. Suddenly, your video feed catches up.
+            
+            //Bottom Line:
+                //UDP is fast but incredibly unreliable
+                
         //TCP
+            //Transmission Control Protocol
+            //HTTP uses TCP and not UDP
