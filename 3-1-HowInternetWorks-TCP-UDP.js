@@ -93,7 +93,58 @@
             
             //Bottom Line:
                 //UDP is fast but incredibly unreliable
-                
+                //HTTP is not based on UDP, so Express does not have the faults of UDP
         //TCP
             //Transmission Control Protocol
             //HTTP uses TCP and not UDP
+            //TCP is Connection-based
+                //If you are a client and want to talk via TCP to a server
+                //You need to initiate a 3-way handshake
+                //In order to send any data, you have to first initiate a connection. 
+                //3-way handshake
+                    //1. Client asks server to initiate connection
+                    //2. Server says yes or no
+                    //3. Data starts going from client to server
+
+            //Because of 3-way handshake, TCP is reliable
+                //UDP just sends data, even if there is no server there. Or server disappears before packet arrives there or server refuses the packet
+
+            //TCP also has delivery acknowledgement of data. 
+                //Every time data comes through to server, the server will let the client know that the server got the clients data and vice versa
+                //TCP gets acknowledgement that the data got received.
+            
+            //TCP has retransmission of data.
+                //UDP may not know whether data was received or not because there isn't data acknowledgement.
+                //In a TCP connection, if data isn't received, the server can let the client know I didn't get something
+                //Then the client, can send it again.
+            
+            //TCP has in-order packets
+                //If packets of data don't come through in the right order
+                //things may get messed up
+                //But with TCP, you can guarantee that the packets arrive in the correct order
+                    //regardless of what happens with the network
+            
+            //TCP has congestion control
+                //If the network is overwhelmed 
+                //e.g. you are at a concert or sporting event and the network is overwhelmed
+                    //You're trying to connect to something. 
+                    //TCP may intentionally introduce latency to try and keep packet loss to a minimum
+                    //So that the problem does not get worse
+
+                    //The end goal is to try and make things better.
+                
+            //TCP
+                //Anything where reliability is crucial
+                //HTTP utilizes TCP because we need all the reliability that TCP offers.
+                //If we are send a web page to a client, we need the packets showing up in order
+                    //if not, the HTML will show up completely wrong
+                    //or CSS is garbled format
+
+            //UDP
+                //Fast and can be unreliable, you would go with UDP
+                //gaming, live communication, things you never want to introduce latency
+            
+            //TCP and IP together - get two computers ready to talk to each other
+                //They create an environment that will allow two machines to talk to each other
+                //TCP is used in the transport layer and is used instead of UDP for HTTP because 
+                //TCP is reliable and UDP is not.
