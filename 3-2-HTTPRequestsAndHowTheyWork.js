@@ -80,4 +80,32 @@
                     //5. TCP connection closes
 
 //HTTP message
-    //What does an HTTP message look like
+    //What does an HTTP message look like?
+        //3 pieces
+            //1. Start line - has a header and body
+                //start line is a single line 
+                //and describes the request
+                //e.g. get method, and the path, and the protocol used
+                    // Request start line - get /blog http/1.1
+                    // Response start line - http/1.1 404
+
+            //2. Header - specifies the request or describes the body
+                //It essentially contains meta data
+                //and always comes in the form of key value pairs
+
+                //As a javascript developer, it will look like an object
+            
+            //3. blank line between header and body
+                //To indicate separation between header and body
+
+            //4. Body
+                //Contains the content, the HTML
+                
+        //HTTP messages follow this format
+
+        //curl - linux utility that allows you to make requests
+            //-v - stands for verbose
+            //URL
+        //e.g. curl -v www.google.com
+
+        //10:25 example of HTTP request/response
