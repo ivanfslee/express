@@ -45,6 +45,7 @@ const server = http.createServer((req, res) => {
     // and with a html body of 'Hello, world'
 
     //e.g. A post request to our server will get back a response of 'Hello, world'
+    //e.g. A get request to 'localhost:3000/aloha' will get back a response of 'Hello, world'
 
 // createServer returns an object with a listen method
     //listen takes 1 argument:
