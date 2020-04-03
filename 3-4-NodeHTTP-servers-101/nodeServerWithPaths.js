@@ -1,5 +1,13 @@
 const http = require('http'); 
 
+//fs = file system module
+    //fs is built into node
+    //will enable us to read files
+    //fs gives node access to THIS computers (the server's) file system
+    //We use the fs module to serve up HTML files as responses to requests
+
+const fs = require('fs');
+
 const server = http.createServer((req, res) => {
     //console.log(req.url); //inside request object there is an 'url' property. This line will log the path the user requested relative to our root domain
     
@@ -7,7 +15,9 @@ const server = http.createServer((req, res) => {
         //the user wants the homepage
         //we know, because the req object has '/' in the url
         res.writeHead(200, {'content-type':'text/html'});
-        res.write('<h1>This is the homepage!</h1>');
+
+        const homePageHTML = fs.readFileSync('node.html'); //can use fs.readFile also
+        res.write(homePageHTML); //under the hood, we are not serving the file itself, but the contents of the file written to the buffer
         res.end();
     } else {
         res.writeHead(404, {'content-type':'text/html'});
@@ -15,7 +25,6 @@ const server = http.createServer((req, res) => {
         res.end();
     }
     
-
 });
 
 server.listen(3000);
