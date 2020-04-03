@@ -3,7 +3,7 @@ const http = require('http');
 //fs = file system module
     //fs is built into node
     //will enable us to read files
-    //fs gives node access to THIS computers (the server's) file system
+    //fs gives node js, access to THIS computers (the server's) file system
     //We use the fs module to serve up HTML files as responses to requests
 
 const fs = require('fs');
@@ -11,7 +11,7 @@ const fs = require('fs');
 const server = http.createServer((req, res) => {
     //console.log(req.url); //inside request object there is an 'url' property. This line will log the path the user requested relative to our root domain
     
-    if (req.url === '/') {
+    if (req.url === '/') { //if requests url property is the root url
         //the user wants the homepage
         //we know, because the req object has '/' in the url
         res.writeHead(200, {'content-type':'text/html'});
