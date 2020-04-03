@@ -34,10 +34,17 @@ const server = http.createServer((req, res) => {
         //2. object for the mime-type
     res.writeHead(200, {'content-type':'text/html'}); // try 'text/plain' or 'text/html' or 'text/css' These will tell the browser to interpret your response differently
 
-    res.write('<h1>Hello, world</h1>');
+    res.write('<h1>Hello, world</h1>'); //'write' method used to write body of http response 
 
     res.end(); //this lets the browser (client) know we (the server) wants to close the connection
 });
+
+//note: with how we have the server set up right now,
+    //our server will respond to requests the exact same way
+    //Our server will respond to ANY requests with a '200' code
+    // and with a html body of 'Hello, world'
+
+    //e.g. A post request to our server will get back a response of 'Hello, world'
 
 // createServer returns an object with a listen method
     //listen takes 1 argument:
