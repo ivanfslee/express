@@ -44,14 +44,14 @@ const app = express();
 //     res.send(`<h1>Welcome to the homepage~</h1>`)
 // });
 
-//Express routing is meant to handle 2 things - 
-    //1. Type of HTTP request 
-    //2. The path you actually want to fetch
+    //Express routing is meant to handle 2 things - 
+        //1. Type of HTTP request 
+        //2. The path you actually want to fetch
 
-//Note:
-    //In the event that an HTTP request matches multiple routes we have set up
-    //The first res.send that occurs in the code will be the response sent
-    
+    //Note:
+        //In the event that an HTTP request matches multiple routes we have set up
+        //The first res.send that occurs in the code will be the response sent
+
 app.get('/', (req, res) => {
     console.log(req.route.methods); //logs the method type
     res.send(`<h1>Welcome to the home GET page~</h1>`);
