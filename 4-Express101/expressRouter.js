@@ -44,22 +44,33 @@ const app = express();
 //     res.send(`<h1>Welcome to the homepage~</h1>`)
 // });
 
+//Express routing is meant to handle 2 things - 
+    //1. Type of HTTP request 
+    //2. The path you actually want to fetch
+
+//Note:
+    //In the event that an HTTP request matches multiple routes we have set up
+    //The first res.send that occurs in the code will be the response sent
+    
 app.get('/', (req, res) => {
-    console.log('get request received');
-    res.send('get response sent');
+    console.log(req.route.methods); //logs the method type
+    res.send(`<h1>Welcome to the home GET page~</h1>`);
 });
 
 app.post('/', (req, res) => {
-
+    res.send(`<h1>Welcome to the home POST page~</h1>`);
 });
 
 app.delete('/', (req, res) => {
-
+    res.send(`<h1>Welcome to the home DELETE page~</h1>`);
 });
 
 app.put('/', (req, res) => {
-
+    res.send(`<h1>Welcome to the home PUT page~</h1>`);
 });
 
 app.listen(3000);
 console.log('The server is listening on port 3000');
+
+//Postman - is used especially in API development because you need to make a lot of 
+    //different HTTP requests
