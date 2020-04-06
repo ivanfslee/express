@@ -32,7 +32,7 @@ const server = http.createServer((req, res) => {
     //writeHead takes 2 arguments:
         //1. status code, i.e. 404, 200, etc 
         //2. object for the mime-type
-    res.writeHead(200, {'content-type':'text/html'}); // try 'text/plain' or 'text/html' or 'text/css' These will tell the browser to interpret your response differently. These are called 'mime types'. There are several hundred of them.
+    res.writeHead(200, {'content-type':'text/html'}); // try 'text/plain' or 'text/html' or 'text/css' These will tell the browser to interpret your response differently. These are called 'mime types'. There are several hundred of them. Mimetypes indicate what kind of data we are expecting.
 
     res.write('<h1>Hello, world</h1>'); //'write' method used to write body of http response 
 
