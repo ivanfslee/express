@@ -14,15 +14,17 @@ const app = express(); //our const express is a function, so we want to invoke i
 //alternative to lines 10 and 11 is 'const express = require('express')();' 
     //but that is not convention
 
+app.use(express.static('public'));
+
 //all is a method that takes 2 arguments:
     //1. the route
     //2. callback function to run if the route is requested
-app.all('*', (req, res) => {
+app.all('/', (req, res) => {
     //Node handles the start-line as usual
     //Express handles the basic headers (status code, mime-type) e.g. res.writeHead(200, {'content-type':'text/html'}); is not needed here
     //We need to handle the body with 'res.send(<stuff we want to send here>);'
     //Express handles the end of the response - e.g. res.end() is not needed here
-    res.send('<h1>This is the home page!!!</h1>');
+    res.send('<h1>This is the home page~!!!</h1>');
 })
 
 app.listen(3000); //listen method can have a second argument, callback function that runs once
