@@ -20,6 +20,9 @@ const app = express();
     //In this case, we are serving up everything in the 'public' folder
     //We don't need to specify a route/path/url e.g. '/' root path
 
+    //note: 'serve-static' is not actually built into express
+        //express is simply using the 'serve-static' module
+
 app.use(express.static('public'));
 
     //with the app running, if we go to url localhost:3000/styles.css, it will serve up the css file
@@ -28,6 +31,13 @@ app.use(express.static('public'));
     //some people use express.static to serve up entire front-end sites
     //You just drop the entire front-end website into 'public' folder 
         //and app.use(express.static('public')); will serve everything up in the folder
+
+        //you also don't have to put 'public' into the url
+            //you dont have to do this -> localhost:3000/public/node.png 
+            //instead, you can omit 'public' and serve up the files there -> localhost:3000/node.png
+            //'public' is already assumed, because the app/server knows that if it is in the folder 'public', it can serve up those files inside as part of root domain (localhost:3000/ in this case is the root domain)
+
+
     
     //Recall in our node JS server, we had to use if/else statements to see if http request matched the file name 
         //e.g. This entire code to serve up node.png:
@@ -49,7 +59,7 @@ app.use(express.static('public'));
         
     //note2: important to serve up only what you want the world to have access to
         //That is why we name the folder 'public' as a reminder that everyone will have access to what's inside the 'public' folder
-        //You really just want to include front-end type stuff - css files, etc 
+        //You really just want to include front-end type stuff - css files, html files, images etc 
         
 app.listen(3000);
 console.log('Server listening on port 3000');
