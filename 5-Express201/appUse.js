@@ -35,6 +35,7 @@ const app = express();
 //We could do 1-5 in a single app.get() or app.post()
 
 //Steps 2, 3, 4 , we can use app.use or whatever the request method might be
+//Steps 2, 3, 4 are accomplished by middleware
 
 //Example middleware - we will do step 2 - validating a user
 function validateUser(req, res, next) { //the 'next' parameter makes it middleware 
@@ -94,3 +95,14 @@ app.get('/', (req, res, next) => {
 
 app.listen(3000);
 console.log('Server listening on port 3000');
+
+//Summary:
+    //Middleware is anything that has access to req, res, and next objects
+
+
+//So app.get(), app.post(), app.delete(), these all act as middleware
+//Middleware will be passed to the next middleware as long as the next() is run
+//If there is no next() call. Then it stops.
+
+//Difference between app.all('*') and app.use('/')?
+    //https://stackoverflow.com/questions/14125997/difference-between-app-all-and-app-use
