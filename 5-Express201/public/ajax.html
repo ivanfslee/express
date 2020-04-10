@@ -17,6 +17,8 @@
     When the 'ourRequest' is fulfilled, the callback function is run which logs back the response.
 
     Because ajax.html file is located in 'public' folder, it will automatically load if we just go to localhost:3000/ajax.html
+
+    Even though the 'dataType' is 'json', it will still send data as 'application/x-www-form-urlencoded;' which we parse with express.urlencoded() middleware
 -->
 
 <script>
