@@ -46,3 +46,9 @@ app.post('/ajax', (req, res) => {
     //9:00
 app.listen(3000);
 console.log('Server is listening on port 3000');
+
+//Request object properties that we have explored so far:
+    //req.body - contains the json data {name: "Rob"} from ajax request initiated in ajax.html
+    //req.headers
+    //req.route
+    //Google - request object deconstructed
