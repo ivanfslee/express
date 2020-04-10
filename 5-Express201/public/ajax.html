@@ -1,0 +1,15 @@
+<!--Here, we demonstrate a common use case where you have a front end that wamts to make an ajax  request
+
+-->
+
+<!--link from google search google jquery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!--Our ajax request here, will make a POST HTTP request to localhost:3000/ajax
+-->
+<script>
+    const ourRequest = $.ajax({[
+        method: "POST",
+        url: "http://localhost:3000/ajax"
+    ]})
+</script>
