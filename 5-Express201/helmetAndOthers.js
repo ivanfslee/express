@@ -14,8 +14,8 @@ app.use(express.urlencoded({extended:false}));
 
 //This defined route will handle the ajax request from ajax.html
 app.post('/ajax', (req, res) => {
-    console.log(req);
-    res.send('Testing');
+    console.log(req); //req.body contains the json data {name: 'Rob'} that was sent from ajax.html
+    res.send('Testing'); //This will get sent back to the browser
 });
 
 //In addition to 'create application' - (line 2) and express.static(); (line 3)
@@ -38,11 +38,11 @@ app.post('/ajax', (req, res) => {
 //express.urlencoded()
     //Built-in middleware function in express.
     //It parses incoming requests with urlencoded payloads (as opposed to json) and is based on 'body-parser'
-    //so the type is 'application/x-www-form-urlencoded'
+    //so the mime type is 'application/x-www-form-urlencoded'
 
     //we can bring in options like {extended:false}
         //app.use(express.urlencoded({extended:false}));
 
-    //7:11
+    //9:00
 app.listen(3000);
 console.log('Server is listening on port 3000');

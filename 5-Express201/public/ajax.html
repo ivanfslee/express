@@ -5,11 +5,31 @@
 <!--link from google search google jquery-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<!--Our ajax request here, will make a POST HTTP request to localhost:3000/ajax
+<!--
+    We make a get request by going to 'localhost:3000/ajax.html' in our browser
+    When ajax.html loads, the script below will run.
+    The script runs the ajax request (ourRequst) will take place
+    Our ajax request here, will make a POST HTTP request to localhost:3000/ajax 
+    The datatype of the ajax request is 'json'
+    and the data we are sending is {name: "Rob"} (which is json format).
+    Because jquery always returns a 'promise', there is a '.then'
+    The callback of the '.then' just logs the response so we know we got something back
+    When the 'ourRequest' is fulfilled, the callback function is run which logs back the response.
+
+    Because ajax.html file is located in 'public' folder, it will automatically load if we just go to localhost:3000/ajax.html
 -->
+
 <script>
-    const ourRequest = $.ajax({[
+    const ourRequest = $.ajax({
         method: "POST",
-        url: "http://localhost:3000/ajax"
-    ]})
+        url: "http://localhost:3000/ajax",
+        dataType: "json",
+        data:{
+            name: "Rob"
+        }
+    })
+
+    ourRequest.then( (response) => {
+        console.log(response);
+    })
 </script>
