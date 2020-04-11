@@ -31,7 +31,11 @@
         }
     })
 
-    ourRequest.then( (response) => {
+    //The promise is okay with accepting a response with content-type/mime-type of 'application/json', but not 'text/html'
+    //So in our express server, when we send a response to resolve this, res.send() will send a response of type 'text/html'
+    //whereas res.json() will send a response with content-type of 'application/json'
+    ourRequest.then( (response, statusCode, xmlhttp) => {
         console.log(response);
+        console.log(xmlhttp);
     })
 </script>

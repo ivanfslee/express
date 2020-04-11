@@ -26,7 +26,13 @@ app.post('/ajax', (req, res) => {
     console.log(req.body); //req.body contains the json data {name: 'Rob'} that was sent from ajax.html
         //req.body is the mirror image of the object that was sent from ajax.html
         //req.body is created by the middleware express.json() (an empty object) and express.urlencoded() (data inside the empty object made by express.json())
-    res.send('Testing'); //This will get sent back to the browser
+    res.json('Testing'); //This will get sent back to the browser
+    //In express, res.send will, by default send a mime-type/content-type of 'text/html'
+    //If we use res.json('Testing') instead of res.send('Testing'), this will change the the mime-type to 'application/json', which, will resolve the promise in ajax.html
+    //This is because, in ajax.html, jquery (like axios), the promise is ok accepting 'application/json' and resolving, but not 'text/html'
+    //res.json() instead of res.send(), should be used anytime you need to respond with json (which will be often, depending on what you're building).
+
+    //Anytime you respond with HTML, you are going to use res.render(). It will change the headers so there is a different mime-type
 });
 
 //In addition to 'create application' - (line 2) and express.static(); (line 3)
