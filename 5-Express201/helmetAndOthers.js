@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const helmet = require('helmet');
+const helmet = require('helmet'); //middleware that adds headers that protect against certain vulnerabilities/security issues
 
 app.use(helmet());
 
@@ -25,6 +25,7 @@ app.use(express.urlencoded({extended:false})); //This line enables us to get the
 app.post('/ajax', (req, res) => {
     console.log(req.body); //req.body contains the json data {name: 'Rob'} that was sent from ajax.html
         //req.body is the mirror image of the object that was sent from ajax.html
+        //req.body is created by the middleware express.json() (an empty object) and express.urlencoded() (data inside the empty object made by express.json())
     res.send('Testing'); //This will get sent back to the browser
 });
 
