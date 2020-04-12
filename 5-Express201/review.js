@@ -33,6 +33,49 @@
     //We wrote the body
         //We used the fs (file-system) module to write the body
     //We also closed the connection 
-    //server.listen(3000)
+    //server.listen(3000) is analogous to app.listen(3000) in our express server
         //Each computer has 2^16 (65000 ports)
-//7:00 min
+    //7min
+    //req, res
+
+//Express server 101
+    //express utilizes NodeJS
+    //app === express() === createApplication()
+    //server.listen() is analogous to app.listen()
+
+    //router
+
+    //app.get(), app.post, app.all,
+
+    //serve up static files with express.static() middleware
+
+//Express server 201
+    //Middleware - any function that has access to req, res, and next
+
+    //networking on the outside, node/express development on the inside
+
+    //app.use, anytime you see a callback/function (req, res, next) =>
+
+    //next() is the way to move a piece of middleware forward
+
+    //express.json() - body parser
+
+    //express.urlencoded() - body parser
+
+    //helmet() - third party module
+
+//Request
+    //req.ip - contains requesters ip
+    //req.path - contains the requested path
+    //req.body - contains parsed data (typically parsed from the request via middlewares express.json() and express.urlencoded())
+
+
+//Response
+    //res.send (or .end()) - send content-type of 'text/html'
+    //res.sendFile - send a file
+    //res.locals - available through the res
+    //res.json (or .jsonp) - send content-type of 'application/json'
+
+
+//Keyboard shortcuts
+    //ctrl + pgup/pgdown moves across tabs in vscode
