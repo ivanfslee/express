@@ -76,3 +76,13 @@ console.log('Server is listening on port 3000');
     //req.headers - this will show that the content-type/mime-type is 'application/x-www-form-urlencoded; charset=UTF-8'
     //req.route
     //Google - request object deconstructed
+
+//res.json()
+    //sends a JSON response.
+    //This method sends a response with parameters that is converted to a JSON string using JSON.stringify()
+    //Parameters can be any JSON type, including object, array, string, Boolean, or number.
+    //You can also use it to convert other values to JSON, such as null, and undefined
+
+//res.jsonp()
+    //sends a JSON response with JSONP support
+    //This method is identical to res.json(), except that it opts-in to JSONP callback support.

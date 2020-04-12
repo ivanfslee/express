@@ -34,6 +34,11 @@
     //The promise is okay with accepting a response with content-type/mime-type of 'application/json', but not 'text/html'
     //So in our express server, when we send a response to resolve this, res.send() will send a response of type 'text/html'
     //whereas res.json() will send a response with content-type of 'application/json'
+
+    //ajax will not accept 'text/html', so the request does not get resolved if our express server sends a res.send() response
+    //The promise below, will only get resolved, when a valid response is returned.
+    //A valid response in this case being a mime-type of 'application/json'
+    //Our ajax request only gets resolved with a mime-type of 'application/json' which is accomplished by our express server sending a json response via res.json() method
     ourRequest.then( (response, statusCode, xmlhttp) => {
         console.log(response);
         console.log(xmlhttp);
