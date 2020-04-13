@@ -35,8 +35,15 @@
     //We also closed the connection 
     //server.listen(3000) is analogous to app.listen(3000) in our express server
         //Each computer has 2^16 (65000 ports)
-    //7min
-    //req, res
+        //Every computer's network connection is divided up into 65000 ports
+        //You can use any port as long as you have permission to use it and the port is not already in use
+        //The transport layer creates the 65000 ports
+    //When HTTP traffic came in on port 3000, we would handle it with a callback function
+    //In the callback, that would deal with the req and res objects
+
+    //Req and res objects are really important with middleware
+
+    //Put simply, the req and res objects are just HTTP messages comming in (request) and the HTTP message going out (response)
 
 //Express server 101
     //express utilizes NodeJS
