@@ -43,16 +43,17 @@
 
     //Req and res objects are really important with middleware
 
-    //Put simply, the req and res objects are just HTTP messages comming in (request) and the HTTP message going out (response)
+    //Put simply, the req and res objects are just HTTP messages comming in (request) as a network request and the HTTP message going out (response) as a network response
 
 //Express server 101
     //express utilizes NodeJS
-    //app === express() === createApplication()
+    //app === express() === createApplication() function inside express node module
+
     //server.listen() is analogous to app.listen()
 
     //router
 
-    //app.get(), app.post, app.all,
+    //app.get, app.post, app.all, app.put, app.delete etc
 
     //serve up static files with express.static() middleware
 
@@ -60,29 +61,44 @@
     //Middleware - any function that has access to req, res, and next
 
     //networking on the outside, node/express development on the inside
-
-    //app.use, anytime you see a callback/function (req, res, next) =>
+        //That is, the request comes from the outside. 
+        //The response is sent to the outside
+        //On the inside is anytime you see a callback/function (req, res, next)
 
     //next() is the way to move a piece of middleware forward
+        //without next(), the cycle will stop
 
-    //express.json() - body parser
+    //With app.use, we used express.json() - body parser
+        //The body parser creates req.body, otherwise, req.body is undefined
+        //Any piece of data passed through in the HTTP request that has a 'content-type' of 'application/json' or 'x-www-form-urlencoded' or other content-type
+        //The data will be put into req.body 
 
-    //express.urlencoded() - body parser
+    //With app.use, we used express.urlencoded() - body parser
 
-    //helmet() - third party module
+    //app.use will be the main way we use middle-ware except when we are writing out the entire function 
+    
+    //With app.use, we used helmet() - third party module
+        //Writes and sets headers to protect from certain vulnerabilities
 
 //Request
     //req.ip - contains requesters ip
     //req.path - contains the requested path
     //req.body - contains parsed data (typically parsed from the request via middlewares express.json() and express.urlencoded())
 
-
 //Response
     //res.send (or .end()) - send content-type of 'text/html'
+        //You would use res.end() only if you were to run a process but never actually respond with something
+            //With res.end(), you essentially get the request and not send a response back and just close the connection
     //res.sendFile - send a file
+        //e.g. send an HTML file
+        //We will seldom use this
     //res.locals - available through the res
-    //res.json (or .jsonp) - send content-type of 'application/json'
-
+        //You can store local variables in this particular request
+        //Useful for middleware early on in the process
+        //Earlier, we used res.locals to store a boolean that showed that our used was validated
+        //Later on in the middleware process or the request/response cycle, we were able to check in on the local variable
+        //Later, res.locals will be useful when serving up templates. The template will be able to pull out data from res.locals
+    //res.json (or .jsonp) - sends json back as content-type of 'application/json'
 
 //Keyboard shortcuts
     //ctrl + pgup/pgdown moves across tabs in vscode
