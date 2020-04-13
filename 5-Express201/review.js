@@ -76,7 +76,7 @@
     //With app.use, we used express.urlencoded() - body parser
 
     //app.use will be the main way we use middle-ware except when we are writing out the entire function 
-    
+
     //With app.use, we used helmet() - third party module
         //Writes and sets headers to protect from certain vulnerabilities
 
@@ -92,7 +92,7 @@
     //res.sendFile - send a file
         //e.g. send an HTML file
         //We will seldom use this
-    //res.locals - available through the res
+    //res.locals - available through the res object
         //You can store local variables in this particular request
         //Useful for middleware early on in the process
         //Earlier, we used res.locals to store a boolean that showed that our used was validated
