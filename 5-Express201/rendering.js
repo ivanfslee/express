@@ -14,11 +14,25 @@ app.use(express.static('public'));
 app.use(express.json()); 
 app.use(express.urlencoded({extended:false}));
 
+//app.set assigns a 'name' to 'value'
+//You can store any value you want, but certain names can be used to configuire the behavior of the server
+    //Special names in the documentation at expressjs.com
+    //A special name we are interested in is 'view engine'
+    //By default, the 'view engine' is undefined
+    //So, we have to define the engine we want to use
+//app.set() will take 2 arguments
+    //1. key/name
+    //2. value
+
+//Essentially, we are setting our 'view engine' to 'ejs'
+app.set('view engine', 'ejs');
+
+//11:39
+
 app.get('/', (req, res, next) => {
     res.render('index');
 });
 
-//9:00
 //res.render() process
 //In order to use res.render() - the process is as follows:
     //1. Express as we know it happens. This file. build express, build our routes and our middleware, etc
