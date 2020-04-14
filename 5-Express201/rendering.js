@@ -25,15 +25,22 @@ app.use(express.urlencoded({extended:false}));
     //2. value
 
 //Essentially, we are setting our 'view engine' to 'ejs'
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs'); //'hbs' for handlebars view engine, 'pug' for pug view engine
 
-//11:39
+//app.set has another special name available to it called 'views'
+//It is a string or array - and is a directory or an array of directories for the application's views.
+app.set('views', path.join(__dirname, 'views')); //__dirname is the current directory name
 
 app.get('/', (req, res, next) => {
-    res.render('index');
+    res.render('index'); //It will look for index.ejs file in our '/views' directory and render it
 });
 
 //res.render() process
+//Overall you need 3 things
+    //1. The type of file and the view engine - e.g. ejs
+    //2. The location of the file - 
+    //3. The name of the file -'index' - line 35
+
 //In order to use res.render() - the process is as follows:
     //1. Express as we know it happens. This file. build express, build our routes and our middleware, etc
     //2. We define a view engine. We need to decide what to use.
