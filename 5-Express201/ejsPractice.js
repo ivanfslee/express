@@ -40,8 +40,72 @@
     //we have a dynamic front-end site where we can build the DOM based on nodeJS.
 
 //Template engine (ejs file/pug file/mustache file/etc) essentially builds the DOM based on data it gets from node/express server
+    //before it gets sent out as a response
+    //It won't have a great ui like using a front-end framework or library like vue/react
+    //but ejs does have some benefits
 
 //Node/express server -> template engine -> Front-end HTML/CSS/JS
 
-//5:43
 
+
+//Entire EJS Process:
+    //In order to use res.render() - the process is as follows:
+        //1. Express as we know it happens. This file. build express, build our routes and our middleware, etc
+        //2. We define a view engine. We need to decide what to use.
+            //View engine examples:
+                //EJS
+                //Mustache
+                //Handlebars
+                //Jade/Pug
+        //3. Inside one of our rotes, we have a res.render()
+        //4. We pass that res.render 2 things:
+            //First Thing - the file we want to use. The file is either a EJS file, mustache file, pug file, or handlebars file, or whatever file that our view engine uses
+            //Second Thing - the data we want to send to that file.
+                //Essentially, the view engine is between nodeJS and the front-end stuff
+                //res.locals - is used to store any data that we want to send to the template
+                //Then the template engine can fill out the HTML accordingly
+        //5. Express uses the node module for our specified view engine (EJS in this example) and parses the file.
+            //Parsing the file means, translating. It will take some express, and some HTML/CSS/JS and create a final product of things the browser can read (HTML/CSS/JS)
+            //That means, it takes the HTML/JS/CSS and combines it with whatever 'node module' there is in the file
+        //6. The final result of this process is a compiled product of the things the browser can read (mainly, HTML/CSS/JS)
+        //7. Then the response is sent out.
+
+const path = require('path');
+const express = require('express');
+const app = express();
+const helmet = require('helmet');
+
+app.use(helmet());
+
+//serve up static files from 'public' folder
+app.use(express.static('public')); 
+
+//parse json and urlencoded data into req.body
+app.use(express.json()); 
+app.use(express.urlencoded({extended:false}));
+
+app.set('view engine', 'ejs'); //'hbs' for handlebars view engine, 'pug' for pug view engine
+
+//app.set has another special name available to it called 'views'
+//It is a string or array - and is a directory or an array of directories for the application's views.
+app.set('views', path.join(__dirname, 'views')); //__dirname is the current directory name
+
+
+//4. We pass that res.render 2 things:
+    //First Thing - the file we want to use. The file is either a EJS file, mustache file, pug file, or handlebars file, or whatever file that our view engine uses
+    //Second Thing - the data we want to send to that file.
+        //Essentially, the view engine is between nodeJS and the front-end stuff
+        //res.locals - is used to store any data that we want to send to the template
+        //Then the template engine can fill out the HTML accordingly
+//5. Express uses the node module for our specified view engine (EJS in this example) and parses the file.
+    //Parsing the file means, translating. It will take some express, and some HTML/CSS/JS and create a final product of things the browser can read (HTML/CSS/JS)
+    //That means, it takes the HTML/JS/CSS and combines it with whatever 'node module' there is in the file
+//6. The final result of this process is a compiled product of the things the browser can read (mainly, HTML/CSS/JS)
+//7. Then the response is sent out.
+
+app.get('/', (req, res, next) => {
+    res.render('index'); //It will look for index.ejs file in our '/views' directory and render it
+});
+
+app.listen(3000);
+console.log('Server is listening on port 3000');
