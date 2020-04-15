@@ -1,0 +1,19 @@
+<!-- The goal of ejs is that it transpiles JavaScript into HTML -->
+<!-- <li>Test</li> gets sent to the browser -->
+<!-- You can put javascript between the '<% %>' delimiters-->
+<% for (let i = 0; i < 10; i++) { %>
+    <li>Test</li>
+<% } %>
+
+<br />
+
+<!-- The code below gets sent to the browser. But the ejs code above does not get sent to browser -->
+<!-- The ejs code above gets transpiled to HTML <li>Test</li> before being sent to the browser -->
+<!-- This is apparent when you go to your browser and inspect the HTML code -->
+<!-- This needs to happen because the browser cannot read EJS -->
+<!-- The equivalent to the ejs above, using pure javascript and DOM manipulation -->
+<script>
+    for (let i = 0; i < 10; i++) {
+        document.write(`<li>Test</li>`);
+    }
+</script>

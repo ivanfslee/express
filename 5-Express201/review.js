@@ -102,3 +102,5 @@
 
 //Keyboard shortcuts
     //ctrl + pgup/pgdown moves across tabs in vscode
+    //With your cursor on a line - you can move the entire line up and down - ctrl + shift + up arrow/down arrow
+    //multi-line editing by expanding cursor - ctrl + alt + up arrow/down arrow

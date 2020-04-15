@@ -1,0 +1,11 @@
+<% for (let i = 0; i < 10; i++) { %>
+    <li><%= i %></li>
+<% } %>
+
+<br> 
+
+<% for (let i = 0; i < 10; i++) { %>
+    <% if (i % 2 === 0) { txt = 'even' %>
+    <% } else { txt = 'odd' } %>
+    <li><%= i %> - <%= txt %></li>
+<% } %>

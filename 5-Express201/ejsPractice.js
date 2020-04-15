@@ -93,7 +93,8 @@ app.set('views', path.join(__dirname, 'views')); //__dirname is the current dire
 
 //4. We pass that res.render 2 things:
     //First Thing - the file we want to use. The file is either a EJS file, mustache file, pug file, or handlebars file, or whatever file that our view engine uses
-    //Second Thing - the data we want to send to that file.
+    //Second Thing - the data we want to send to that file (typically, the data is in JSON format)
+        //Data should be JSON format, because it will be appended to res.locals
         //Essentially, the view engine is between nodeJS and the front-end stuff
         //res.locals - is used to store any data that we want to send to the template
         //Then the template engine can fill out the HTML accordingly
@@ -104,8 +105,17 @@ app.set('views', path.join(__dirname, 'views')); //__dirname is the current dire
 //7. Then the response is sent out.
 
 app.get('/', (req, res, next) => {
-    res.render('index'); //It will look for index.ejs file in our '/views' directory and render it
+    //The data, in the second argument, is going to be appended to res.locals
+    res.render('index', {
+        msg: 'Success!'
+    }); //It will look for index.ejs file in our '/views' directory and render it
 });
 
 app.listen(3000);
 console.log('Server is listening on port 3000');
+
+
+//EJS tags
+    // <% means to run javascript
+    // <%= means to just print to DOM/HTML
+    // <%# ejs comment tag 
