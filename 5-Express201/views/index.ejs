@@ -14,8 +14,21 @@
 <!-- Another way to access msg and msg2 is through res.locals property -->
     <!-- Here, in the ejs file, it is already assumed that we are in the 'res', response object -->
     <!-- The object we pass into res.render()  is appended to res.locals-->
+    <!-- res.locals is passed down through each middleware and can be accessed by each middleware in the req/res cycle -->
         <!-- So res.locals.msg can be accessed in the ejs file by locals.msg-->
         <!-- So res.locals.msg2 can be accessed in the ejs file by locals.msg2-->
 
 <h1><%= locals.msg %></h1>
 <h1><%= locals.msg2 %></h1>
+
+<!-- locals.validated is accessed from the validatedUser middleware defined in our express server -->
+<!-- The server set res.locals.validated to true -->
+<!-- Because ejs can access res.locals, we can access the validated property here -->
+<h1><%= locals.validated %></h1>
+
+<!-- All our view files (ejs files) have access to res.locals -->
+<!-- It is already understood that we are accessing res.locals, so we can remove the 'locals' -->
+
+<h3><%= msg %></h3>
+<h3><%= msg2 %></h3>
+<h3><%= validated %></h3>

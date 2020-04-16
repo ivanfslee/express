@@ -90,6 +90,19 @@ app.set('view engine', 'ejs'); //'hbs' for handlebars view engine, 'pug' for pug
 //It is a string or array - and is a directory or an array of directories for the application's views.
 app.set('views', path.join(__dirname, 'views')); //__dirname is the current directory name
 
+//Let's write a piece of middleware
+function validateUser(req, res, next) {
+    //Other validating logic goes here...
+    //We add a 'validated' property to res.locals
+    res.locals.validated = true;
+    //Our ejs file has access to res.locals, so it can access res.locals.validated there too
+    next();
+}
+
+//We run validateUser middleware on every path/incoming request:
+    //Which means that every path will have access to res.locals.validated
+    //Which also means all our view files (ejs files) have access to res.locals
+app.use(validateUser);
 
 //4. We pass that res.render 2 things:
     //First Thing - the file we want to use. The file is either a EJS file, mustache file, pug file, or handlebars file, or whatever file that our view engine uses
@@ -115,8 +128,7 @@ app.get('/', (req, res, next) => {
 app.listen(3000);
 console.log('Server is listening on port 3000');
 
-
 //EJS tags
     // <% means to run javascript
     // <%= means to just print to DOM/HTML
-    // <%# ejs comment tag 
+    // <%# ejs comment tag
