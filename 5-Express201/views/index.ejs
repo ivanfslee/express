@@ -1,3 +1,21 @@
-<!-- msg is from ejsPractice.js -->
+<!-- msg and msg2 is from ejsPractice.js -->
 <!-- index.ejs was passed data into it -->
+<!-- We essentially have a bridge between the ejs file and our express server -->
+<!-- The DOM is built, we get the data from Express, that is written directly to our response before we ever send it out -->
+
+<!-- Our browser will only ever get <h1>Success!</h1> -->
+<!-- Our browser will only ever get <h1>Failure!</h1> -->
+<!-- Browser will not see or know of the ejs code -->
+
 <h1><%= msg %></h1>
+<h1><%= msg2 %></h1>
+<br>
+
+<!-- Another way to access msg and msg2 is through res.locals property -->
+    <!-- Here, in the ejs file, it is already assumed that we are in the 'res', response object -->
+    <!-- The object we pass into res.render()  is appended to res.locals-->
+        <!-- So res.locals.msg can be accessed in the ejs file by locals.msg-->
+        <!-- So res.locals.msg2 can be accessed in the ejs file by locals.msg2-->
+
+<h1><%= locals.msg %></h1>
+<h1><%= locals.msg2 %></h1>

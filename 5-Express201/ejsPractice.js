@@ -107,7 +107,8 @@ app.set('views', path.join(__dirname, 'views')); //__dirname is the current dire
 app.get('/', (req, res, next) => {
     //The data, in the second argument, is going to be appended to res.locals
     res.render('index', {
-        msg: 'Success!'
+        msg: 'Success!',
+        msg2: 'Failure!'
     }); //It will look for index.ejs file in our '/views' directory and render it
 });
 
