@@ -32,3 +32,19 @@
 <h3><%= msg %></h3>
 <h3><%= msg2 %></h3>
 <h3><%= validated %></h3>
+
+<!-- %- percent sign with a dash means to tell the browser to interpret it rather than just print it -->
+<!-- Interpret it rather than just print it off as text -->
+<!-- %= percent sign with equals sign means to just print it (prints non-escaped stuff)-->
+<!-- Because 'html' value is a base64 encoded image, we use ejs' %- syntax to tell browser -->
+<!-- to interpret the base64 rather than just print it -->
+<!-- If we do '%= html' it will just print out the literal base64 string -->
+<%= html %>
+<%- html %>
+
+<!-- EJS comments are done with '%#' -->
+<!-- It will not show in the DOM or anywhere else other than our code base -->
+<%# This is a comment %>
+
+<!-- '!--' These are HTML comments -->
+<!-- They WILL show up in the DOM -->
