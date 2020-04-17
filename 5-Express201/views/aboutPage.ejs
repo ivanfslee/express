@@ -1,0 +1,12 @@
+<!-- 'include' will basically serve up other ejs files -->
+<!-- Useful for navbars, and other elements that are on each page of your website -->
+<!-- One line can serve up the element -->
+<!-- Similar in concept to components in react -->
+
+<%- include('head'); %>
+<!-- They changed the syntax for 'include' -->
+<!-- https://stackoverflow.com/questions/59106739/syntaxerror-unexpected-indentifier-while-compiling-ejs-problem -->
+
+<%- include('navbar'); %>
+
+<h1>About Page!</h1>

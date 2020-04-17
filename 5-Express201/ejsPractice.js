@@ -104,6 +104,11 @@ function validateUser(req, res, next) {
     //Which also means all our view files (ejs files) have access to res.locals
 app.use(validateUser);
 
+//About page route
+app.get('/about', (req, res, next) => {
+    res.render('aboutPage', {}); //We are not serving any data, so we can have an empty object as the second argument
+});
+
 //4. We pass that res.render 2 things:
     //First Thing - the file we want to use. The file is either a EJS file, mustache file, pug file, or handlebars file, or whatever file that our view engine uses
     //Second Thing - the data we want to send to that file (typically, the data is in JSON format)
@@ -121,7 +126,7 @@ app.get('/', (req, res, next) => {
     //The data, in the second argument, is going to be appended to res.locals
     //res.render will look for index.ejs file in our '/views' directory and render it
     //We also place a base64 encoded image as the value for key 'html'
-    res.render('index', {
+    res.render('indexHomePage', {
         msg: 'Success!',
         msg2: 'Failure!',
         //Let's say HTML came from the database and we want to drop it in the ejs template
