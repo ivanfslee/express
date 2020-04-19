@@ -90,7 +90,11 @@ app.post('/process_login', (req, res, next) => {
         //Because HTTP is stateless, each request/response is independent of other requests/responses
         
         //res.cookie
-            //response object sets cookies
+            //res.cookie is built into expressjs
+            //Sets a cookie with key and value
+            //To clear the cookie from the user's browser,
+                //you use res.clearCookie(key)
+                // to clear the cookie by passing in the key of the cookie
             //From express documentation (https://expressjs.com/en/api.html)
                 //res.cookie(name, value [,options])
                 //Sets 'cookie' name to value        
@@ -120,6 +124,8 @@ app.get('/welcome', (req, res, next) => {
     res.render('welcome', {
         //We set req.cookies.username (line 92) with res.cookie('username', username)
         //req.cookies object is made possible by the 'cookie-parser' middleware
+        //'cookie-parser' middleware parses 'Cookie' header 
+        //and populates req.cookies with an object keyed by the cookie names
         username: req.cookies.username
     });
 });
@@ -131,11 +137,13 @@ app.get('/logout', (req, res, next) => {
     //res.clearCookie() takes 1 argument
         //1. Cookie to clear by name
     
-    //So this will clear the 'username' cookie from the user's computer
-    //Cookies are stored in your browser
-    //You can see if res.cookie() is working to set your cookie
-    //And you can see if res.clearCookie() is working to remove your cookie
-        //By going to your browser's dev tools -> Application tab -> Right Column 'Cookies'
+    //res.clearCookie
+        //res.clearCookie is built into express
+        //So this will clear the 'username' cookie from the user's computer
+        //Cookies are stored in your browser
+        //You can see if res.cookie() is working to set your cookie
+        //And you can see if res.clearCookie() is working to remove your cookie
+            //By going to your browser's dev tools -> Application tab -> Right Column 'Cookies'
     res.clearCookie('username');
 
     //Send user back to '/login'
