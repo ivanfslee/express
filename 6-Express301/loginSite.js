@@ -3,12 +3,18 @@ const path = require('path');
 const express = require('express');
 const app = express();
 
+const cookieParser = require('cookie-parser');
+
 const helmet = require('helmet');
 app.use(helmet());
 
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+
+//cookieParser - new 3rd party middle we are using
+//creates and stores cookies into 'req.cookies' object
+app.use(cookieParser());
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -18,7 +24,23 @@ app.get('/login', (req, res, next) => {
 });
 
 app.post('/process_login', (req, res, next) => {
-    
+    //How we coded this route:
+        //When user submits the form from login.ejs, it sends a post request to '/process_login' route
+        //We have no:
+            //res.render()
+            //res.send()
+            //res.json()
+            //in this '/process_login' route
+        //Instead, our route redirects the user to other routes in our express server
+            //using 'res.redirect()'
+            //We redirect them to '/welcome' or '/login'
+        
+    //The post route to '/process_login' is to assess the user submitted data
+        //and send user to the appropriate route after that
+        //The route does not serve any particular ejs or json data
+        //Recall that 'post' routes receive user-submitted data
+
+    // res.json(req.body);
     //Recall: 'req.body' property is made by express.urlencoded() middleware
         //It will parse the HTTP message for any data inside it
         //The data will be mirrored in req.body property
@@ -64,20 +86,36 @@ app.post('/process_login', (req, res, next) => {
         //This is because after this /process_login route, we send the user to the 'welcome' page
         //And recall that HTTP is stateless, so the req.body.username and req.body.password will be gone or will contain different data
         //Because HTTP is stateless, each request/response is independent of other requests/responses
+        
+        //res.cookie
+            //response object sets cookies
         res.cookie('username', username);
 
         //res.redirect takes 1 argument:
+            //res.redirect() makes a 'GET' request
             //1. Where to send the browser
-
-        // res.render('welcome');
         res.redirect('/welcome');
+
+        //We have another option with res.render();
+            //We can render the welcome.ejs
+        // res.render('welcome');
+    } else {
+        //'?' question mark in the route indicates a 'query string'
+        res.redirect('/login?msg=fail')
     }
-    // res.json(req.body);
-    // res.end();
 });
 
 app.get('/welcome', (req, res, next) => {
-    res.send('Welcome~');
+    //req.body.username will be empty because this is a new http request
+    //req.cookies object will have a property for every named cookie that has been set
+
+    //Note: res.cookie - is singular - because you are setting one cookie at a time
+        //req.cookies - is plural because you may have many cookies
+
+    res.render('welcome', {
+        //We set req.cookies.username (line 92) with res.cookie('username', username)
+        username: req.cookies.username
+    });
 });
 
 app.listen(3000);
