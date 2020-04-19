@@ -13,7 +13,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
 //cookieParser - new 3rd party middle we are using
-//creates and stores cookies into 'req.cookies' object
+    //creates and stores cookies into 'req.cookies' object
+    //Parses 'Cookie' header and populates 'req.cookies' with an object keyed by the cookie names
+    // https://expressjs.com/en/resources/middleware/cookie-parser.html
 app.use(cookieParser());
 
 app.set('view engine', 'ejs');
@@ -89,6 +91,9 @@ app.post('/process_login', (req, res, next) => {
         
         //res.cookie
             //response object sets cookies
+            //From express documentation (https://expressjs.com/en/api.html)
+                //res.cookie(name, value [,options])
+                //Sets 'cookie' name to value        
         res.cookie('username', username);
 
         //res.redirect takes 1 argument:
@@ -114,9 +119,29 @@ app.get('/welcome', (req, res, next) => {
 
     res.render('welcome', {
         //We set req.cookies.username (line 92) with res.cookie('username', username)
+        //req.cookies object is made possible by the 'cookie-parser' middleware
         username: req.cookies.username
     });
 });
+
+app.get('/logout', (req, res, next) => {
+    //an HTML <a> anchor tag always points to a 'GET' route
+    //In welcome.ejs, the 'logout' link points to '/logout'
+
+    //res.clearCookie() takes 1 argument
+        //1. Cookie to clear by name
+    
+    //So this will clear the 'username' cookie from the user's computer
+    //Cookies are stored in your browser
+    //You can see if res.cookie() is working to set your cookie
+    //And you can see if res.clearCookie() is working to remove your cookie
+        //By going to your browser's dev tools -> Application tab -> Right Column 'Cookies'
+    res.clearCookie('username');
+
+    //Send user back to '/login'
+    res.redirect('/login');
+});
+
 
 app.listen(3000);
 console.log('Server is listening on port 3000');
@@ -128,3 +153,13 @@ console.log('Server is listening on port 3000');
 
 //Create 'package.json' file
     //npm init
+
+//Cookie data is stored in your browser
+    //Cookies are typically domain specific
+    //That is, cookies are tied to a particular domain/web address/url
+    //You can see what cookies are stored in your browser
+        //Go to your developer tools
+        //Application tab
+        //Right column - 'Cookies'
+        //There should be list of domains
+        //Clicking on the domains reveals the name of the cookie and the value and when the cookie expires
