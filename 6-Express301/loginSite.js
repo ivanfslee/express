@@ -21,6 +21,30 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use((req, res, next) => {
+    // console.log('res.locals is: ', res.locals); 
+    if (req.query.msg === 'fail') {
+        //we want to set a local variable that the view engine will
+        //be able to see. 
+        //The view engine and every piece of middleware has access to 'res.locals'
+        //So we use 'res.locals' to set a message
+
+        //We create a 'msg' property in 'res.locals'
+        res.locals.msg = 'Sorry. This username and password combination does not exist.'
+    } else {
+        res.locals.msg = '';
+    }
+
+    //res.locals.msg
+        //Above, we create an 'msg' property in 'res.locals'
+        //If the query string with key 'msg' has a value of 'fail'
+        //We store an error message into 'res.locals.msg'
+        //Otherwise, we set 'res.locals.msg' to an empty string
+
+    //Send request on to the next piece of middleware
+    next();
+});
+
 app.get('/login', (req, res, next) => {
     //req.query
         //The req object has a query property in Express
@@ -197,3 +221,8 @@ console.log('Server is listening on port 3000');
     //So sensitive information should not be put into the query string
 
     //It is easy for the browser and server to pull stuff out of the URL if it needs to
+
+    //We are using query strings to notify us of what has happened
+        //and subsequently what we will do if a query string is marked a certain way
+        //For example in our query string '/login?msg=fail&test=hello'
+            //We used that to tell us that the user had a failed login/password
