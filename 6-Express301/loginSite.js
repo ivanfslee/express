@@ -22,6 +22,11 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/login', (req, res, next) => {
+    //req.query
+        //The req object has a query property in Express
+        //req.query is an object that has the property of every key/value pair in the query string in the URL
+        //It is easy for the browser and server to pull stuff out of the URL if it needs to
+    console.log(req.query);
     res.render('login');
 });
 
@@ -110,7 +115,20 @@ app.post('/process_login', (req, res, next) => {
         // res.render('welcome');
     } else {
         //'?' question mark in the route indicates a 'query string'
-        res.redirect('/login?msg=fail')
+        //The '?' is a special character in a URL
+            //Everything after the '?' is part of the query string
+                //Typically in key/value format
+                //In this example 'msg=fail'
+            //Everything before the '?' is part of the actual path of the domain
+            //The web server will not care about everything after the '?'
+                //That is because it is not part of the actual path to get to this page
+
+            //For multiple pairs in the query string:
+                //use an '&'
+                //Two pairs in the following example:
+                    //'/login?msg=fail&test=hello'
+                    //  'msg=fail' and 'test=hello'
+        res.redirect('/login?msg=fail&test=hello');
     }
 });
 
@@ -122,7 +140,7 @@ app.get('/welcome', (req, res, next) => {
         //req.cookies - is plural because you may have many cookies
 
     res.render('welcome', {
-        //We set req.cookies.username (line 92) with res.cookie('username', username)
+        //We set req.cookies.username (line 101) with res.cookie('username', username)
         //req.cookies object is made possible by the 'cookie-parser' middleware
         //'cookie-parser' middleware parses 'Cookie' header 
         //and populates req.cookies with an object keyed by the cookie names
@@ -171,3 +189,11 @@ console.log('Server is listening on port 3000');
         //Right column - 'Cookies'
         //There should be list of domains
         //Clicking on the domains reveals the name of the cookie and the value and when the cookie expires
+
+//req.query
+    //query strings are a common way of passing information around on the web
+    //The query string is where you put INSECURE data
+    //People that monitor your internet traffic can see the entire query string
+    //So sensitive information should not be put into the query string
+
+    //It is easy for the browser and server to pull stuff out of the URL if it needs to
