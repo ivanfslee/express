@@ -30,8 +30,13 @@ app.use((req, res, next) => {
         //So we use 'res.locals' to set a message
 
         //We create a 'msg' property in 'res.locals'
+            //and set it to an error message
+            //We will pass 'res.locals.msg' into our login.ejs file
+            //So that the value can be displayed
         res.locals.msg = 'Sorry. This username and password combination does not exist.'
     } else {
+        //We will pass 'res.locals.msg' into our login.ejs file
+        //So that the value can be displayed
         res.locals.msg = '';
     }
 
@@ -172,6 +177,35 @@ app.get('/welcome', (req, res, next) => {
     });
 });
 
+//This solution of having 3 routes that all do the same thing, is not ideal
+    //These 3 routes could be replaced by:
+        //1. res.render() - render a view
+        //2. res.json() - to a frontend framework/library e.g. vue or react
+        //3. req.params object - built into express 
+
+        // app.get('/story/1', (req, res, next) => {
+        //     res.send('<h1>Story 1</h1>');
+        // });
+
+        // app.get('/story/2', (req, res, next) => {
+        //     res.send('<h1>Story 2</h1>');
+        // });
+
+        // app.get('/story/3', (req, res, next) => {
+        //     res.send('<h1>Story 3</h1>');
+        // });
+
+//In a route, anytime something has a ':' in front of it is a wildcard
+    //Wildcard will match anything in that slot
+    //e.g. '/story/:storyId' - would match '/story/sdlfjsdl234234fj'
+    //e.g. '/story/:storyId' - would match '/story/anything'
+    //e.g. '/story/:storyId' - would match '/story/anyValueHere' 
+
+//req.params object always exists 4:20
+app.get('/story/:storyId', (req, res, next) => {
+    res.send();
+});
+
 app.get('/logout', (req, res, next) => {
     //an HTML <a> anchor tag always points to a 'GET' route
     //In welcome.ejs, the 'logout' link points to '/logout'
@@ -226,3 +260,7 @@ console.log('Server is listening on port 3000');
         //and subsequently what we will do if a query string is marked a certain way
         //For example in our query string '/login?msg=fail&test=hello'
             //We used that to tell us that the user had a failed login/password
+
+//req.params
+    //Another way to pass information around the web is using parameters
+    //They are kind of like wildcard pieces of the path itself
