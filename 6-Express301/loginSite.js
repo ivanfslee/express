@@ -177,6 +177,35 @@ app.get('/welcome', (req, res, next) => {
     });
 });
 
+//app.param() - takes 2 arguments:
+    //1. param to look for in the route
+    //2. a callback function to run (with an extra argument in it that is the param name)
+    
+    //app.param() is a way to check if the incomming request has any of the parameters 
+        //we have coded for in our express server
+        //If it does, we can have extra logic to handle it in app.param()
+
+    //For example, you have 3 routes with a parameter ':uid'
+        //app.get('/user/:uid'...);
+        //app.get('/user/admin/:uid'...);
+        //app.get('/user/profile/:uid'...);
+    //You can use app.param('uid', ()) to distinguish between the 3 routes
+        //if a route with ':uid' is encountered by the server    
+
+//So, express server will check if the route has ':storyId' in it
+app.param('storyId', (req, res, next, storyId) => {
+    console.log('Params called:', storyId);
+
+    //if storyId has something to do with X, then do something here...
+
+    //else if storyId has something to do with Y, then do something here...
+
+    //without 'next()', the middleware process will stop
+    next();
+});
+
+
+
 //This solution of having 3 routes that all do the same thing, is not ideal
     //These 3 routes could be replaced by:
         //1. res.render() - render a view
@@ -201,9 +230,23 @@ app.get('/welcome', (req, res, next) => {
     //e.g. '/story/:storyId' - would match '/story/anything'
     //e.g. '/story/:storyId' - would match '/story/anyValueHere' 
 
-//req.params object always exists 4:20
 app.get('/story/:storyId', (req, res, next) => {
-    res.send();
+    //req.params object always exists (it is part of express)
+    //req.params object is built inside of express
+    //req.params will have a property for each wildcard in the route
+
+    //For this route, you can access ':storyId' value
+        //through 'req.params.storyId'
+    res.send(`<h1>Story ${req.params.storyId}</h1>`)
+});
+
+app.get('/story/:storyId/:link', (req, res, next) => {
+    //For this route, you can access ':storyId' value
+        //through 'req.params.storyId'
+    
+    //You can access the ':link' value 
+        //through 'req.params.link'
+    res.send(`<h1>Story ${req.params.storyId} - ${req.params.link}</h1>`)
 });
 
 app.get('/logout', (req, res, next) => {
@@ -262,5 +305,9 @@ console.log('Server is listening on port 3000');
             //We used that to tell us that the user had a failed login/password
 
 //req.params
-    //Another way to pass information around the web is using parameters
+    //Another way to pass information through the URL is using parameters
     //They are kind of like wildcard pieces of the path itself
+
+//Keyboard shortcut
+    //Copy a line of code - alt + shift + up arrow/down arrow
+    //move line of code up or down - alt + up arrow/down arrow
