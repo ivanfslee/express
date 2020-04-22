@@ -249,6 +249,56 @@ app.get('/story/:storyId/:link', (req, res, next) => {
     res.send(`<h1>Story ${req.params.storyId} - ${req.params.link}</h1>`)
 });
 
+//This '/statement' path will send the user their banking statement
+//Because it is sensitive and financial information, we CANNOT put the statement in 'public'
+//Because files in the 'public' folder can be accessed by anyone
+app.get('/statement', (req, res, next) => {
+    //res.sendFile() will load up the image in the browser
+        //which is not necessarily what we want
+    // res.sendFile(path.join(__dirname, 'userStatements/BankStatementChequing.png'));
+
+    //Instead we can use the 'download' method
+    //app has a 'download' method. It takes 2 arguments:
+        //1. filename
+        //2. optional argument - what you want the filename to download as
+        //3. optional 3rd argument - callback function that runs, if an error has occured with sending the file
+    const currentDate = new Date;
+
+    //Note: you may have to open up your developer console in chrome, 
+        //right click on the reload icon at the top left of the browser
+        //and click on 'empty cache and hard reload'
+        //Otherwise, the browser will reload the image in the browser again
+    
+    //If done correctly, res.download() will serve up the file by opening a dialog box
+        //asking you to save the file on your local computer
+    
+    //In the response headers, res.download() will add a new property in the header
+        // called 'Content-Disposition' which indicates the file file is an 'attachment'
+        //Under the hood, res.download will set the 'Content-Disposition' header
+        //And it will also use res.sendFile() to transfer the file to your machine
+
+        //When the browser sees the 'Content-Disposition' header, this tells it to download the file
+        //instead of rendering the file in the browser
+
+        //With res.sendFile(), there is no 'Content-Disposition' header
+        //So the browser just renders the image in the browser
+
+        //res.download() sets the headers
+            //1. It sets 'Content-Disposition' to 'attachment' with a filename of the 2nd argument (if it is provided)
+    res.download(path.join(__dirname, 'userStatements/BankStatementChequing.png'), `JimsStatement_${currentDate}.png`)
+
+    //You can even set the headers yourself using res.set(), 
+        //then you use res.sendFile()
+        //e.g. res.set('Content-Disposition', 'attachment');
+            //res.sendFile()
+    
+    //res.attachment()
+        //res.attachment() ONLY sets the headers for 'Content-Disposition' to 'attachment'
+        //If you provide a file, it will also set the filename
+        //e.g. res.attachment(path.join(__dirname, 'userStatements/BankStatementChequing.png'), `JimsStatement.png`)
+
+});
+
 app.get('/logout', (req, res, next) => {
     //an HTML <a> anchor tag always points to a 'GET' route
     //In welcome.ejs, the 'logout' link points to '/logout'
