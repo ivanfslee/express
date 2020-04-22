@@ -282,10 +282,30 @@ app.get('/statement', (req, res, next) => {
 
         //With res.sendFile(), there is no 'Content-Disposition' header
         //So the browser just renders the image in the browser
+        //Once the browser gets the 'Content-Disposition' header, it will know what to do
+            //It will commence the downloading of the file on the user's machine
 
         //res.download() sets the headers
             //1. It sets 'Content-Disposition' to 'attachment' with a filename of the 2nd argument (if it is provided)
-    res.download(path.join(__dirname, 'userStatements/BankStatementChequing.png'), `JimsStatement_${currentDate}.png`)
+    res.download(path.join(__dirname, 'userStatements/BankStatementChequing.png'), `JimsStatement_${currentDate}.png`, (error) => {
+        //if there is an error in sending the file, the headers may already be sent
+        //That means, that you don't get another 'res' (response)
+        //You already sent off your 'res' (response)
+
+        //You CANNOT do the following:
+            // if (error) {
+            //     res.redirect('/download/error');
+            // }
+
+        //You CAN do the following: (use the res.headersSent property)
+        //res.headersSent is a boolean, true, if headers are already sent. False, otherwise
+        //If headersSent is true, you cannot send another response
+        if (error) {
+            if (!res.headersSent) { //If headers have NOT been sent
+                res.redirect('/download/error'); //Then we can send a response and redirect the user
+            }
+        }
+    });
 
     //You can even set the headers yourself using res.set(), 
         //then you use res.sendFile()
@@ -297,6 +317,22 @@ app.get('/statement', (req, res, next) => {
         //If you provide a file, it will also set the filename
         //e.g. res.attachment(path.join(__dirname, 'userStatements/BankStatementChequing.png'), `JimsStatement.png`)
 
+    //NOTE:
+    //If the headers have already been sent, 
+        //that is, if a response has already been sent to the user's browser
+        //Then you cannot send another response. 
+        //There is a boolean you have to check for
+
+        //e.g. you send res.json({msg: 'test}), then you send res.send('<h1>hello~</h1>)
+            //This will result in an error. 
+            //It will tell you that express already sent headers
+            //It cannot send it a second time
+        //You have to see if the headers have already been sent
+            //There is a boolean you can check for this
+            //The property that contains the boolean is - 'res.headersSent'
+        
+        //We care about this because, if we res.download() is run and the headers have been sent (that is, 'Content-Disposition' has been sent from res.download())
+            //but there is an error, you'd have to do something about it. You cannot just send the headers again
 });
 
 app.get('/logout', (req, res, next) => {
