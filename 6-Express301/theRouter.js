@@ -28,6 +28,18 @@ router.get('/', (req, res, next) => {
     });
 });
 
+//Other available router methods include the usual suspects:
+    //router.use()
+    //router.all()
+    //router.post()
+    //router.delete()
+    //router.put()
+    //etc
+    //These are all available as they would be for 'app' (app.post(), app.delete(), etc)
+
+    //router.use() - works the same way as app.use() does
+        //Except it is specific to this router
+    
 //we export the router object so other files can use it 
     //We will import/require the 'router' into 'routerApp.js'
 module.exports = router; 

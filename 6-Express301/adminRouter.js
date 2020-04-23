@@ -11,7 +11,7 @@
 
 const express = require('express');
 
-let userRouter = express.Router();
+let adminRouter = express.Router();
     //'let' is the ES6 version, we use 'let' instead of 'var'
     //express.Router() creates a new router object
     //express.Router() acts the same way as the 'app' router does
@@ -25,26 +25,26 @@ let userRouter = express.Router();
 //To access the '/user' route in our browser, we go to:
     //localhost:3000/user1/user
     //The '/user1' comes from 'routerApp.js'
-    //Our root route for this 'userRouter.js' is defined in 'routerApp.js'
+    //Our root route for this 'adminRouter.js' is defined in 'routerApp.js'
     //And in this case, we define the root route as '/user1'
     
     //If we just want to access the '/user' route in our browser as:
         //localhost:3000/user
-        //In routerApp.js our root route for userRouter.js should be '/user'
-        //And the path in 'userRouter.js' should be '/' instead of '/user'
+        //In routerApp.js our root route for adminRouter.js should be '/user'
+        //And the path in 'adminRouter.js' should be '/' instead of '/user'
 
-function validateUser(req, res, next) {
-    res.locals.validated = true;
-    console.log('User validated!');
+function validateAdmin (req, res, next) {
+    res.locals.validatedAdmin = true;
+    console.log('Admin is validated');
     next();
 }
 
-//validateUser is middleware that will ONLY be added to this router.
-    //In other words, other routers like 'theRouter.js' does not know about this middleware
+adminRouter.use(validateAdmin);
+        
+//validateAdmin is middleware that will ONLY be added to this router.
+    //In other words, other routers like 'theRouter.js' and 'userRouter.js' does not know about this middleware
     //The upshot is that it bundles specific middleware with specific routes
     //Other routes may not need to have certain middleware
-
-userRouter.use(validateUser);
 
 //Other available router methods include the usual suspects:
     //router.use()
@@ -58,7 +58,7 @@ userRouter.use(validateUser);
     //router.use() - works the same way as app.use() does
         //Except it is specific to this router
 
-userRouter.get('/user', (req, res, next) => { 
+adminRouter.get('/', (req, res, next) => { 
     res.json({
         msg: 'User Router Works!'
     });
@@ -66,4 +66,4 @@ userRouter.get('/user', (req, res, next) => {
 
 //we export the router object so other files can use it 
     //We will import/require the 'router' into 'routerApp.js'
-module.exports = userRouter; 
+module.exports = adminRouter; 

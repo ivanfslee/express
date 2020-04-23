@@ -36,12 +36,14 @@ app.use(express.static('public'));
     //We will import our routes from 'theRouter.js'
 const router = require('./theRouter'); //9:00 timestamp
 const userRouter = require('./userRouter');
+const adminRouter = require('./adminRouter');
 
 //This line is just like usual middleware implementations
     //At path '/', I want you to use 'router' which contains our routes
     //and is imported from 'theRouter.js'
 app.use('/', router);
 app.use('/user1', userRouter);
+app.use('/admin', adminRouter);
 
 //The upshot to this structure is that each set of routes can have their own router:
     //e.g. you could have multiple router files serving up a different group of routes
