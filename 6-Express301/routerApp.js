@@ -57,3 +57,8 @@ app.use('/admin', adminRouter);
 
 app.listen(3000);
 console.log('Server is listening on port 3000');
+
+// keyboard shortcuts
+    //select next instance of highlighted word in vscode - ctrl + d
+    //Expand your cursor to multiple lines - alt + shift + up arrow/down arrow
+    //Move line of code up or down - ctrl + shift + up arrow/down arrow         
