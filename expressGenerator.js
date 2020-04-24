@@ -14,6 +14,9 @@
     //Navigate to the directory you want your express server to be
         //In terminal type:
             //'express <express-server-folder-name>'
+            //If you want a different view engine than 'jade', like 'ejs' 
+            //You can type 'express <express-server-folder-name> --view=ejs'
+
         //It will create a new folder <express-server-folder-name> with the following contents:
             //package.json
             //app.js
@@ -32,4 +35,10 @@
                 //'start': 'node ./bin/www'
 
                 //You can type 'nodemon' (without file/path) in terminal to start up express server
-                
+
+    //The express server is mostly in 'app.js' and gets exported
+        //bin folder (binary) is the actual entry point for the application
+        //In './bin/www' file, they require the 'app.js' file
+        //And initiate the express server there
+    
+    //style.css file is in './public/stylesheets' folder
