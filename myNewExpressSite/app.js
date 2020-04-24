@@ -1,5 +1,10 @@
 var createError = require('http-errors');
 var express = require('express');
+var app = express();
+const helmet = require('helmet');
+
+app.use(helmet());
+
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan'); //morgan is a node_module for debugging/logging
@@ -7,7 +12,7 @@ var logger = require('morgan'); //morgan is a node_module for debugging/logging
 var indexRouter = require('./routes/index'); //They've included 2 routers 
 var usersRouter = require('./routes/users'); //One router for index routes and one router for users routes
 
-var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
