@@ -38,6 +38,7 @@
 
     //The express server is mostly in 'app.js' and gets exported
         //bin folder (binary) is the actual entry point for the application
+            //the 'www' file in bin folder is where the server.listen(port) is
         //In './bin/www' file, they require the 'app.js' file
         //And initiate the express server there
     
