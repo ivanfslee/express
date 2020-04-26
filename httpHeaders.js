@@ -41,9 +41,13 @@
 
 //Headers can be grouped according to their context:
     //1. General headers - apply to both requests and responses
-        //These headers typically have no realtion to the data transmitted in the body
+        //https://developer.mozilla.org/en-US/docs/Glossary/General_header
+        //These headers typically have no relation to the data transmitted in the body
         //e.g. A date header can be considered a 'General Header' 
             //Date: Sun, 26 Apr 2020 04:32:36 GMT
+        //e.g. 'Cache-Control' is also an example of a general header
+            //This header defines the various parameters of caching
+            //For example, how long a browser should cache a response's body/webpage
 
     //2. Request headers
 
@@ -58,3 +62,7 @@
             //res.set('Date', date);
 
     //res.get() is how you get the value of a certain header
+
+//Your browser may cache the headers it received in a response, so to clear the cache, 
+    //Open your browser's dev tools (ctrl + shift + j)
+    //Right click on reload icon at the top left and chose 'empty cache and hard reload'
