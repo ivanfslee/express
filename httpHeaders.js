@@ -35,3 +35,26 @@
 //The headers in the response will tell the client
     //what they're supposed to do with the data you sent to them
     //from the express server
+
+//HTTP Headers documentation MDN
+    //https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
+
+//Headers can be grouped according to their context:
+    //1. General headers - apply to both requests and responses
+        //These headers typically have no realtion to the data transmitted in the body
+        //e.g. A date header can be considered a 'General Header' 
+            //Date: Sun, 26 Apr 2020 04:32:36 GMT
+
+    //2. Request headers
+
+    //3. Response headers
+
+    //4. Entity headers
+
+//Take home point:
+    //res.set() is how you set certain properties of the header
+        //e.g. We set the date header to (July 6, 1969)
+            //const date = new Date(1969, 6, 20);
+            //res.set('Date', date);
+
+    //res.get() is how you get the value of a certain header
