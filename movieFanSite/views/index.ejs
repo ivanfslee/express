@@ -11,11 +11,16 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				<h1></h1>
+				<h1>Now Playing</h1>
 			</div>
 			<div class="col-sm-12">
-				
-				
+				<!-- We have an array called parsedData which is an array that we run 'forEach' method on  -->
+				<% parsedData.forEach((movie) => {%>
+					<!-- <%= movie.title %> -->
+					<div class="col-md-3 col-sm-4 poster">
+						<img src="<%= imageBaseUrl + movie.poster_path %>"/>
+					</div>
+				<% })%>
 			</div>
 		</div>
 	</div>

@@ -18,6 +18,12 @@ const imageBaseUrl = 'http://image.tmdb.org/t/p/w300';
   //e.g. 'w300' means width of 300 pixels
   //e.g. 'w100' means width of 100 pixels
 
+router.use((req, res, next) => {
+  res.locals.imageBaseUrl = imageBaseUrl;
+  //we add imageBaseUrl to res.locals so all middleware can access it
+  next();
+})
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   //We will use the request module to pull our data from an API
@@ -57,10 +63,28 @@ router.get('/', function(req, res, next) {
       //The response object is still useful because it contains the headers and everything else
       //JSON.parse() will return a JavaScript object
       //JSON.parse() converts the string into a JavaScript object
-    console.log(parsedData);
 
+    // res.json(parsedData);
+      //renders the JSON in our web browser
+
+    //The structure of the response.body object is an object called 'results'
+      //The value of results is an array 
+      //Inside the array are a bunch of objects
+      //Each object is a movie
+      //Each object has a property called - 'poster_path'
+        //which gives the URL for the poster image of the movie
+
+    //We will render the index.ejs and pass into it the parsedData.results (which is an array data structure)
+    //Recall, the object we pass into res.render() will be appended to res.locals
+    //So in this case, it will be res.locals.parsedData
+    //parsedData.results refers to the only property in parsedData that we care about
+      //there are other properties after 'results' that we don't care about
+    res.render('index', {
+      parsedData: parsedData.results
+    });
+    
   })
-  res.render('index', { });
+  
 });
 
 module.exports = router;
