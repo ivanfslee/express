@@ -36,11 +36,29 @@ router.get('/', function(req, res, next) {
   //request get request is ASYNCHRONOUS - so we may have to set up a promise chain
   //The request module will make a GET request to nowPlayingUrl
     //Callback function will run once HTTP response from the API comes back
+  //request vs async/await with axios vs promises??
   request.get(nowPlayingUrl, (error, response, movieData) => {
-    console.log('---------The error--------');
-    console.log(error);
-    console.log('---------The response--------');
-    console.log(response);
+    // console.log('---------The error--------');
+    // console.log(error);
+    // console.log('---------The response--------');
+    // console.log(response);
+      //When you look through the response the movie API server sends back to us
+        //the body is actually a very long string (that looks like an object)
+        //Even though it is an object-looking format, 
+        //data across an HTTP message always comes back as a STRING
+        //We used JavaScript to make the request and we're going to use JavaScript to process the request
+      
+    // console.log(movieData); 
+      //movieData is the same as response.body
+      //It is a long-ass string that contains the newest movies in theatres
+
+    const parsedData = JSON.parse(movieData);
+      //Instead of JSON.parse(movieData), JSON.parse(response.body) would be the same thing
+      //The response object is still useful because it contains the headers and everything else
+      //JSON.parse() will return a JavaScript object
+      //JSON.parse() converts the string into a JavaScript object
+    console.log(parsedData);
+
   })
   res.render('index', { });
 });
