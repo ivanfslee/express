@@ -23,9 +23,26 @@ router.get('/', function(req, res, next) {
   //We will use the request module to pull our data from an API
     //The request module will make an HTTP request
     //request module has all the HTTP verbs we are used to (GET/POST/PUT/etc)
-  request.get()
+
+  //request.get takes 2 arguments:
+    //1. The URL to perform the HTTP GET request on
+    //2. The callback function to run when HTTP response comes back from API server
+  
+  //The callback function takes 3 arguments:
+    //1. error (if any) - will be NULL if no error
+    //2. HTTP response - entire HTTP response
+    //3. JSON/data - the server sent back
+
+  //request get request is ASYNCHRONOUS - so we may have to set up a promise chain
+  //The request module will make a GET request to nowPlayingUrl
+    //Callback function will run once HTTP response from the API comes back
+  request.get(nowPlayingUrl, (error, response, movieData) => {
+    console.log('---------The error--------');
+    console.log(error);
+    console.log('---------The response--------');
+    console.log(response);
+  })
   res.render('index', { });
 });
 
 module.exports = router;
-
