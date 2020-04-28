@@ -84,7 +84,12 @@ router.get('/', function(req, res, next) {
     });
     
   })
-  
 });
+
+// /movie/:id is a wildcard route
+  //So the ':id' will be stored in 'req.params.id'
+router.get('/movie/:id', (req, res, next) => {
+  res.json(req.params.id);
+})
 
 module.exports = router;
