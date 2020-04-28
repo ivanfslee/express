@@ -59,6 +59,7 @@ router.get('/', function(req, res, next) {
       //It is a long-ass string that contains the newest movies in theatres
 
     const parsedData = JSON.parse(movieData);
+      //We have to parse the data because 'movieData' comes back as an HTTP message (a string)
       //Instead of JSON.parse(movieData), JSON.parse(response.body) would be the same thing
       //The response object is still useful because it contains the headers and everything else
       //JSON.parse() will return a JavaScript object
@@ -89,7 +90,17 @@ router.get('/', function(req, res, next) {
 // /movie/:id is a wildcard route
   //So the ':id' will be stored in 'req.params.id'
 router.get('/movie/:id', (req, res, next) => {
-  res.json(req.params.id);
-})
+  const movieId = req.params.id;
+  const thisMovieUrl = `${apiBaseUrl}/movie/${movieId}?api_key=${apiKey.key}`
+  // res.send(thisMovieUrl);
+  request.get(thisMovieUrl, (error, response, movieData) => {
+    //We have to parse the data because 'movieData' comes back as an HTTP message (a string)
+    const parsedData = JSON.parse(movieData);
+    res.render('single-movie', {
+      parsedData: parsedData
+      //With es6, if key and value is the same, you can just write the key 'parsedData' in this case
+    });
+  });
+});
 
 module.exports = router;
