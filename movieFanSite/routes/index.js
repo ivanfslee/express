@@ -97,7 +97,7 @@ router.get('/movie/:id', (req, res, next) => {
 
     //We have to parse the data with JSON.parse() because 'movieData' comes back as an HTTP message (a string)
     const parsedData = JSON.parse(movieData);
-    
+    console.log(parsedData);
     res.render('single-movie', {
       parsedData: parsedData
       //With es6, if key and value is the same, you can just write the key 'parsedData' in this case

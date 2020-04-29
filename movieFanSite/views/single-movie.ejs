@@ -10,11 +10,10 @@
 				</h1>
 				
 				<h3 class="single-movie-title">
-					<%= parsedData.original_title %>
-				</h3>
-				
+					<%= parsedData.tagline %>
+				</h3>		
 
-				<img src="<%= imageBaseUrl + parsedData.poster_path %>" />
+				<a href="<%= parsedData.homepage %>"><img src="<%= imageBaseUrl + parsedData.poster_path %>" /></a>
 				
 				<p class="overview-header">Movie Synopsis: <span class="single-movie-overview">
 					<%= parsedData.overview %>
@@ -25,6 +24,8 @@
 
 <!-- Button trigger modal -->
 <div class="col-sm-12 text-center">
+	<!-- data-target attribute links to '#myModal' Because when you click on the button it opens up "myModal" -->
+	<!-- data-toggle attribute indicates it is a modal -->
 	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
 		More Details
 	</button>
@@ -39,7 +40,19 @@
         <h4 class="modal-title" id="myModalLabel">Movie Information</h4>
       </div>
       <div class="modal-body">
-
+		<!-- modal-body should include -->
+		<ul>
+			<li>IMDB Link : <a href="http://imdb.com/title/<%= parsedData.imdb_id %>">Link</a></li>
+			<li>Budget : <%= parsedData.budget %></li>
+			<li>Revenue : <%= parsedData.revenue %></li>
+			<li>Release Date : <%= parsedData.release_date%></li>
+			<li>Production Companies :
+				<ul>
+				<% parsedData.production_companies.forEach((company) => {%>		
+					<li><%= company.name %></li>
+				<% })%></li>
+				</ul>
+		</ul>
 
       </div>
       <div class="modal-footer">
