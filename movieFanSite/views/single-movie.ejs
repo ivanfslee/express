@@ -13,7 +13,8 @@
 					<%= parsedData.tagline %>
 				</h3>		
 
-				<a href="<%= parsedData.homepage %>"><img src="<%= imageBaseUrl + parsedData.poster_path %>" /></a>
+				<a href="<%= parsedData.homepage %>" target="_blank"><img src="<%= imageBaseUrl + parsedData.poster_path %>" /></a>
+				<!-- target="_blank" opens link in a new tab -->
 				
 				<p class="overview-header">Movie Synopsis: <span class="single-movie-overview">
 					<%= parsedData.overview %>
@@ -42,7 +43,8 @@
       <div class="modal-body">
 		<!-- modal-body should include -->
 		<ul>
-			<li>IMDB Link : <a href="http://imdb.com/title/<%= parsedData.imdb_id %>">Link</a></li>
+			<li>IMDB Link : <a href="https://www.imdb.com/title/<%= parsedData.imdb_id %>" target="_blank">Link</a></li>
+			<!-- target="_blank" opens link in a new tab -->
 			<li>Budget : <%= parsedData.budget %></li>
 			<li>Revenue : <%= parsedData.revenue %></li>
 			<li>Release Date : <%= parsedData.release_date%></li>
