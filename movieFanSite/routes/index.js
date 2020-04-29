@@ -94,11 +94,14 @@ router.get('/movie/:id', (req, res, next) => {
   const thisMovieUrl = `${apiBaseUrl}/movie/${movieId}?api_key=${apiKey.key}`
   // res.send(thisMovieUrl);
   request.get(thisMovieUrl, (error, response, movieData) => {
-    //We have to parse the data because 'movieData' comes back as an HTTP message (a string)
+
+    //We have to parse the data with JSON.parse() because 'movieData' comes back as an HTTP message (a string)
     const parsedData = JSON.parse(movieData);
+    
     res.render('single-movie', {
       parsedData: parsedData
       //With es6, if key and value is the same, you can just write the key 'parsedData' in this case
+        //Instead of writing 'parsedData: parsedData'
     });
   });
 });
