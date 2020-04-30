@@ -18,6 +18,8 @@
 				<% parsedData.forEach((movie) => {%>
 					<!-- <%= movie.title %> -->
 					<div class="col-md-3 col-sm-4 poster">
+						<!-- 'imageBaseUrl is from res.locals.imageBaseUrl' -->
+						<!-- The hypertext reference below will render as 'localhost:3000/movie/<movie.id>' -->
 						<a href="/movie/<%= movie.id %>"><img src="<%= imageBaseUrl + movie.poster_path %>"/></a>
 					</div>
 				<% })%>

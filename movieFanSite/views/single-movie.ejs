@@ -13,8 +13,9 @@
 					<%= parsedData.tagline %>
 				</h3>		
 
-				<a href="<%= parsedData.homepage %>" target="_blank"><img src="<%= imageBaseUrl + parsedData.poster_path %>" /></a>
+				<a href="<%= !parsedData.homepage ? '/error' : parsedData.homepage %>" target="_blank"><img src="<%= imageBaseUrl + parsedData.poster_path %>" /></a>
 				<!-- target="_blank" opens link in a new tab -->
+				<!-- If parsedData.homepage is empty string, send user to '/error' page, otherwise, send them to movie homepage -->
 				
 				<p class="overview-header">Movie Synopsis: <span class="single-movie-overview">
 					<%= parsedData.overview %>

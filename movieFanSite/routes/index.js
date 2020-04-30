@@ -106,4 +106,8 @@ router.get('/movie/:id', (req, res, next) => {
   });
 });
 
+router.get('/error', (req, res, next) => {
+  res.send('404 page does not exist');
+});
+
 module.exports = router;
