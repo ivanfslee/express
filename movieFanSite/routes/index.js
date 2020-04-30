@@ -106,6 +106,26 @@ router.get('/movie/:id', (req, res, next) => {
   });
 });
 
+//This route handles the search bar submissions
+  //The category (Actor or Movie Title) is stored in req.body.cat
+    //'cat' is the value of the 'name' attribute for the select drop down category
+  //The text input field is stored in req.body.movieSearch
+    //'movieSearch' is the value of the 'name' attribute for the text input field
+router.post('/search', (req, res, next) => {
+  const userSearchTerm = req.body.movieSearch;
+  const category = req.body.cat; //This will have a value of either 'person' or 'movie'
+  
+  const searchMovieUrl = `${apiBaseUrl}/search/${category}?api_key=${apiKey.key}&language=en-US&query=${userSearchTerm}&page=1&include_adult=false`
+  //Get request to '/search/movie'
+  request.get(searchMovieUrl, (error, response, movieData) => {
+    // console.log(movieData);
+    res.json(movieData)
+  })
+  //4:18
+  //Get request to '/search/person'
+  // res.send('sanity check')
+});
+
 router.get('/error', (req, res, next) => {
   res.send('404 page does not exist');
 });
