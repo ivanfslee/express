@@ -118,7 +118,7 @@ router.post('/search', (req, res, next) => {
   //You encode the search term to normalize it
   //For example, ' ' spaces in the search term will show up as '%20' in the URL
 
-  const userSearchTerm = encodeURI(req.body.movieSearch);
+  const userSearchTerm = encodeURI(req.body.movieSearch); //This will have the value the user typed into search field
   const category = req.body.cat; //This will have a value of either 'person' or 'movie'
   
   const searchMovieUrl = `${apiBaseUrl}/search/${category}?api_key=${apiKey.key}&language=en-US&query=${userSearchTerm}&page=1&include_adult=false`;
