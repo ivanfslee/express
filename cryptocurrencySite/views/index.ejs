@@ -8,9 +8,9 @@
     <% include navbar %>
     <div class="container">
       <div class="row">
-        <% Object.keys(parsedData).forEach((key) => {%>
+        <% Object.entries(parsedData).forEach((entry) => {%>
           <ul>
-            <li><%= key %></li>
+            <li><%= entry[0] %> : <%= entry[1] %></li>
           </ul>
         <% })%>
       </div>
