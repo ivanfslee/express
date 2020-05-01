@@ -112,14 +112,22 @@ router.get('/movie/:id', (req, res, next) => {
   //The text input field is stored in req.body.movieSearch
     //'movieSearch' is the value of the 'name' attribute for the text input field
 router.post('/search', (req, res, next) => {
-  const userSearchTerm = req.body.movieSearch;
+  //Movie API says that the search term should be URI encoded
+  //URI = uniform resource identifier
+  //This is to handle different languages and spaces in the search term
+  //You encode the search term to normalize it
+  //For example, ' ' spaces in the search term will show up as '%20' in the URL
+
+  const userSearchTerm = encodeURI(req.body.movieSearch);
   const category = req.body.cat; //This will have a value of either 'person' or 'movie'
   
   const searchMovieUrl = `${apiBaseUrl}/search/${category}?api_key=${apiKey.key}&language=en-US&query=${userSearchTerm}&page=1&include_adult=false`
   //Get request to '/search/movie'
+  console.log(searchMovieUrl);
   request.get(searchMovieUrl, (error, response, movieData) => {
-    // console.log(movieData);
-    res.json(movieData)
+    
+    const parsedData = JSON.parse(movieData);
+    res.json(parsedData);
   })
   //4:18
   //Get request to '/search/person'
@@ -131,3 +139,7 @@ router.get('/error', (req, res, next) => {
 });
 
 module.exports = router;
+
+
+//Keyboard shortcut
+  //ctrl + x on a line will cut the entire line, don't need to highlight it
