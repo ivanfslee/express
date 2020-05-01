@@ -130,8 +130,12 @@ router.post('/search', (req, res, next) => {
     //We can render with 'index.ejs' again and pass into it
       //parsedData.results - which is an array of all the movies in our search result
     if (category === 'person') {
+      //When searching for 'person', the movie API returns different response
+        //movie API returns an object with results property with an array with a 'known_for' property
+        //parsedData.results[0].known_for is an array of objects
       parsedData = parsedData.results[0].known_for;
     } else {
+      //parsedData.results is an array of object
       parsedData = parsedData.results;  
     }
     res.render('index', {
@@ -147,5 +151,8 @@ router.get('/error', (req, res, next) => {
 module.exports = router;
 
 
+//This is entirely a server-side rendered app.
+  //Compare this to single page apps with react/vue (client-side rendering)
+  
 //Keyboard shortcut
   //ctrl + x on a line will cut the entire line, don't need to highlight it
