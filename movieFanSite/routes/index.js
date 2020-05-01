@@ -121,17 +121,23 @@ router.post('/search', (req, res, next) => {
   const userSearchTerm = encodeURI(req.body.movieSearch);
   const category = req.body.cat; //This will have a value of either 'person' or 'movie'
   
-  const searchMovieUrl = `${apiBaseUrl}/search/${category}?api_key=${apiKey.key}&language=en-US&query=${userSearchTerm}&page=1&include_adult=false`
-  //Get request to '/search/movie'
-  console.log(searchMovieUrl);
+  const searchMovieUrl = `${apiBaseUrl}/search/${category}?api_key=${apiKey.key}&language=en-US&query=${userSearchTerm}&page=1&include_adult=false`;
+  
   request.get(searchMovieUrl, (error, response, movieData) => {
-    
-    const parsedData = JSON.parse(movieData);
-    res.json(parsedData);
-  })
-  //4:18
-  //Get request to '/search/person'
-  // res.send('sanity check')
+    //movieData is a string, so we need to parse it into JSON
+    let parsedData = JSON.parse(movieData);
+
+    //We can render with 'index.ejs' again and pass into it
+      //parsedData.results - which is an array of all the movies in our search result
+    if (category === 'person') {
+      parsedData = parsedData.results[0].known_for;
+    } else {
+      parsedData = parsedData.results;  
+    }
+    res.render('index', {
+      parsedData
+    });
+  });
 });
 
 router.get('/error', (req, res, next) => {
