@@ -1,3 +1,6 @@
+//We need to think about the structure of our server
+  //Our goal is to create endpoints for somebody else to come and hit
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -5,8 +8,20 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const helmet = require('helmet');
 
+//We only had the following routes in our other project accessing the api
+  //  /movie/<something>
+  //  /search/<something>
+  //  /now_playing
+
+// /now_playing
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
+// /movie/...
+const movieRouter = require('./routes/movie');
+
+// /search/...
+const searchRouter = require('./routes/search');
+
 
 var app = express();
 app.use(helmet());
@@ -22,7 +37,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/movie', movieRouter);
+app.use('/search', searchRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
