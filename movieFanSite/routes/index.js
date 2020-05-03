@@ -21,6 +21,7 @@ const imageBaseUrl = 'http://image.tmdb.org/t/p/w300';
 router.use((req, res, next) => {
   res.locals.imageBaseUrl = imageBaseUrl;
   //we add imageBaseUrl to res.locals so all middleware can access it
+  //middleware can access it AND it can be accessed in our ejs files easily
   next();
 })
 
@@ -121,6 +122,7 @@ router.post('/search', (req, res, next) => {
   const userSearchTerm = encodeURI(req.body.movieSearch); //This will have the value the user typed into search field
   const category = req.body.cat; //This will have a value of either 'person' or 'movie'
   
+  //searchMovieUrl structure is from movie API documentation - we just use temperate literals to fill in the fields that are required
   const searchMovieUrl = `${apiBaseUrl}/search/${category}?api_key=${apiKey.key}&language=en-US&query=${userSearchTerm}&page=1&include_adult=false`;
   
   request.get(searchMovieUrl, (error, response, movieData) => {
