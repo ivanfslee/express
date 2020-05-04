@@ -6,10 +6,10 @@ const apiKey = require('../apiKey');
 //api docs here:
   //https://developers.themoviedb.org/3/getting-started/introduction
 
-const apiBaseUrl = 'http://localhost:3030'; //'http://api.themoviedb.org/3'; 
+const apiBaseUrl = 'http://api.themoviedb.org/3'; //'http://localhost:3030';
 //This will be used for every REST api request we are going to make
 
-const nowPlayingUrl = `${apiBaseUrl}/most_popular?api_key=${apiKey.ourAPI}`; //`${apiBaseUrl}/movie/now_playing?api_key=${apiKey.ourAPI}`;
+const nowPlayingUrl = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey.movieAPI}`; //`${apiBaseUrl}/most_popular?api_key=${apiKey.ourAPI}`; 
 //This will fill out the main page with current movies
 
 //Note: To make movieFanSite to work with our API
@@ -97,7 +97,7 @@ router.get('/', function(req, res, next) {
   //So the ':id' will be stored in 'req.params.id'
 router.get('/movie/:id', (req, res, next) => {
   const movieId = req.params.id;
-  const thisMovieUrl = `${apiBaseUrl}/movie/${movieId}?api_key=${apiKey.ourAPI}`
+  const thisMovieUrl = `${apiBaseUrl}/movie/${movieId}?api_key=${apiKey.movieAPI}`
   // res.send(thisMovieUrl);
   request.get(thisMovieUrl, (error, response, movieData) => {
 
@@ -128,7 +128,7 @@ router.post('/search', (req, res, next) => {
   const category = req.body.cat; //This will have a value of either 'person' or 'movie'
   
   //searchMovieUrl structure is from movie API documentation - we just use temperate literals to fill in the fields that are required
-  const searchMovieUrl = `${apiBaseUrl}/search/${category}?api_key=${apiKey.ourAPI}&language=en-US&query=${userSearchTerm}&page=1&include_adult=false`;
+  const searchMovieUrl = `${apiBaseUrl}/search/${category}?api_key=${apiKey.movieAPI}&language=en-US&query=${userSearchTerm}&page=1&include_adult=false`;
   
   request.get(searchMovieUrl, (error, response, movieData) => {
     //movieData is a string, so we need to parse it into JSON
@@ -138,8 +138,15 @@ router.post('/search', (req, res, next) => {
       //parsedData.results - which is an array of all the movies in our search result
     if (category === 'person') {
       //When searching for 'person', the movie API returns different response
-        //movie API returns an object with results property with an array with a 'known_for' property
+        //movie API returns an object with results property.
+        //Results property's value is a single array.
+        //Inside the array is a single object.
+        //The object has various properties
+        //One of the properties is 'known_for'
+        //'known_for' property's value is an array with multiple objects
+        //Each object is a movie/tv show
         //parsedData.results[0].known_for is an array of objects
+      
       parsedData = parsedData.results[0].known_for;
     } else {
       //parsedData.results is an array of object
