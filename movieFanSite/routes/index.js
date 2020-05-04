@@ -6,11 +6,16 @@ const apiKey = require('../apiKey');
 //api docs here:
   //https://developers.themoviedb.org/3/getting-started/introduction
 
-const apiBaseUrl = 'http://api.themoviedb.org/3'; 
+const apiBaseUrl = 'http://localhost:3030'; //'http://api.themoviedb.org/3'; 
 //This will be used for every REST api request we are going to make
 
-const nowPlayingUrl = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey.key}`;
+const nowPlayingUrl = `${apiBaseUrl}/most_popular?api_key=${apiKey.ourAPI}`; //`${apiBaseUrl}/movie/now_playing?api_key=${apiKey.ourAPI}`;
 //This will fill out the main page with current movies
+
+//Note: To make movieFanSite to work with our API
+  //1. change the 3 instances of apiKey.movieAPI to apiKey.ourAPI
+  //2. change apiBaseUrl from 'http://api.themoviedb.org/3' to 'http://localhost:3030'
+  //3. change nowPlayingUrl from `${apiBaseUrl}/movie/now_playing?api_key=${apiKey.movieAPI}` to `${apiBaseUrl}/most_popular?api_key=${apiKey.ourAPI}`
 
 const imageBaseUrl = 'http://image.tmdb.org/t/p/w300';
 //Images come from this url
@@ -92,7 +97,7 @@ router.get('/', function(req, res, next) {
   //So the ':id' will be stored in 'req.params.id'
 router.get('/movie/:id', (req, res, next) => {
   const movieId = req.params.id;
-  const thisMovieUrl = `${apiBaseUrl}/movie/${movieId}?api_key=${apiKey.key}`
+  const thisMovieUrl = `${apiBaseUrl}/movie/${movieId}?api_key=${apiKey.ourAPI}`
   // res.send(thisMovieUrl);
   request.get(thisMovieUrl, (error, response, movieData) => {
 
@@ -123,7 +128,7 @@ router.post('/search', (req, res, next) => {
   const category = req.body.cat; //This will have a value of either 'person' or 'movie'
   
   //searchMovieUrl structure is from movie API documentation - we just use temperate literals to fill in the fields that are required
-  const searchMovieUrl = `${apiBaseUrl}/search/${category}?api_key=${apiKey.key}&language=en-US&query=${userSearchTerm}&page=1&include_adult=false`;
+  const searchMovieUrl = `${apiBaseUrl}/search/${category}?api_key=${apiKey.ourAPI}&language=en-US&query=${userSearchTerm}&page=1&include_adult=false`;
   
   request.get(searchMovieUrl, (error, response, movieData) => {
     //movieData is a string, so we need to parse it into JSON
