@@ -1,11 +1,70 @@
 var express = require('express');
 var router = express.Router();
 
+//Robert Bunch Reference for this file:
+    //https://github.com/robertbunch/justExpress/blob/6eb7aae8805d92ea91d42eba828f8e769777cff4/movieApi/routes/movie.js#L37
+
 /* GET movie page. */
-// '/' route refers to '/movie/...' route
+//The '/' route refers to '/movie/...' route
+
 router.get('/', function(req, res, next) {
     console.log('movie router works');
     res.render('index', { title: 'Express' });
 });
 
+//Route: GET /movie/movieId
+router.get('/:movieId', (req, res, next) => {
+    //Array.find() method
+        //Built-in JS method
+        //Used to get value of first element in an array that 
+            //satisfies the provided condition
+        
+        //If no element satisfies the condition,
+            //it returns 'undefined'
+    
+    //Goes through the movieDetails array.
+        //For each movie, if the id matches the id from the URL parameter (:movieId)
+        //It will return that movie as JSON
+        //If no movie matches the provided ID, it will return a
+            //JSON message saying 'no movie was found'
+    //3:04
+});
+
+//Route: GET /movie/top_rated
+
+//Route: POST /movie/movieId/rating
+
+//Route: DELETE /movie/movieId/rating
+
 module.exports = router;
+
+
+
+//app.param() notes for review: (We went over this in 6-301 Lessons)
+
+    //app.param() - takes 2 arguments:
+        //1. param to look for in the route
+        //2. a callback function to run (with an extra argument in it that is the param name)
+        
+        //app.param() is a way to check if the incomming request has any of the parameters 
+            //we have coded for in our express server
+            //If it does, we can have extra logic to handle it in app.param()
+
+        //For example, you have 3 routes with a parameter ':uid'
+            //app.get('/user/:uid'...);
+            //app.get('/user/admin/:uid'...);
+            //app.get('/user/profile/:uid'...);
+        //You can use app.param('uid', ()) to distinguish between the 3 routes
+            //if a route with ':uid' is encountered by the server    
+
+    //So, express server will check if the route has ':storyId' in it
+        //app.param('storyId', (req, res, next, storyId) => {
+            //console.log('Params called:', storyId);
+
+            //if storyId has something to do with X, then do something here...
+
+            //else if storyId has something to do with Y, then do something here...
+
+            //without 'next()', the middleware process will stop
+            //next();
+        // });
