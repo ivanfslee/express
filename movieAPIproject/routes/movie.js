@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+const movieDetails = require('../data/movies');
 //Robert Bunch Reference for this file:
     //https://github.com/robertbunch/justExpress/blob/6eb7aae8805d92ea91d42eba828f8e769777cff4/movieApi/routes/movie.js#L37
 
@@ -14,6 +15,14 @@ router.get('/', function(req, res, next) {
 
 //Route: GET /movie/movieId
 router.get('/:movieId', (req, res, next) => {
+    const movieId = req.params.movieId;
+
+    //Goes through the movieDetails array.
+        //For each movie, if the id matches the id from the URL parameter (:movieId)
+        //It will return that movie as JSON
+        //If no movie matches the provided ID, it will return a
+            //JSON message saying 'no movie was found'
+
     //Array.find() method
         //Built-in JS method
         //Used to get value of first element in an array that 
@@ -21,13 +30,24 @@ router.get('/:movieId', (req, res, next) => {
         
         //If no element satisfies the condition,
             //it returns 'undefined'
-    
-    //Goes through the movieDetails array.
-        //For each movie, if the id matches the id from the URL parameter (:movieId)
-        //It will return that movie as JSON
-        //If no movie matches the provided ID, it will return a
-            //JSON message saying 'no movie was found'
-    //3:04
+    const result = movieDetails.find(movie => {
+        //Alternatively, you can do double equals instead of triple equals
+            //if (movie.id == movieId) {}
+            //If you do double equals, you don't have to convert toString()
+        if (movie.id.toString() === movieId) {
+            return movie
+        }
+    })
+
+    if (!result) {
+        res.json({
+            msg: 'Movie ID does not exist'
+        })
+    } else {
+        res.json({
+            result
+        })
+    }
 });
 
 //Route: GET /movie/top_rated
