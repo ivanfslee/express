@@ -53,14 +53,15 @@ router.get('/:movieId', (req, res, next) => {
         return movie.id == movieId;
     })
 
+    //If result is 'undefined'
+        //That is, no movie matching the movieId in URL is found
+        //We will return JSON saysing the movie ID does not exist
     if (!result) {
         res.json({
             msg: 'Movie ID does not exist'
-        })
+        });
     } else {
-        res.json({
-            result
-        })
+        res.json(result);
     }
 });
 
