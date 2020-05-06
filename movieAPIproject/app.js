@@ -38,8 +38,9 @@ app.use((req, res, next) => {
     //Express will send a '200' status code with res.json()
       //So we have to manually send a '401' status code
       //Which means, 'Unauthorized'
-      //We are in charge of the headers now, so we
-        //have to set the headers manually to '401'
+      //Since we are programming the API server,
+        //We are in charge of the headers now, so we
+        //have to set the headers manually to be '401' code
     res.json('Invalid API key');
   } else {
     next();
@@ -77,3 +78,11 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+//HTTP status codes
+  //304 - not modified , clear cache and hard reset to resolve
+    //304 is returned to the client when the cached copy of a particular file is up to date with the server. 
+    //That is, response to be sent to the client is the same as the client's cached copy,
+      //So there is no need to send response again, just use the cached copy in client's browser
+  //404 - not found
+  //401 - unauthorized
