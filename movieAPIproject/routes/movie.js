@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const movieDetails = require('../data/movies');
+const movieDetails = require('../data/movieDetails');
 //Robert Bunch Reference for this file:
     //https://github.com/robertbunch/justExpress/blob/6eb7aae8805d92ea91d42eba828f8e769777cff4/movieApi/routes/movie.js#L37
 
@@ -15,6 +15,8 @@ router.get('/', function(req, res, next) {
 
 //Route: GET /movie/movieId
 router.get('/:movieId', (req, res, next) => {
+    //Note: movieId is pulled out of the URL using req.params
+        //Whenever you pull something out of the URL, it will be a 'string' data type
     const movieId = req.params.movieId;
 
     //Goes through the movieDetails array.
@@ -30,13 +32,25 @@ router.get('/:movieId', (req, res, next) => {
         
         //If no element satisfies the condition,
             //it returns 'undefined'
+
     const result = movieDetails.find(movie => {
         //Alternatively, you can do double equals instead of triple equals
             //if (movie.id == movieId) {}
             //If you do double equals, you don't have to convert toString()
-        if (movie.id.toString() === movieId) {
-            return movie
-        }
+
+                //if (movie.id.toString() === movieId) {
+                    //return movie.id === movieId;
+            
+            //You can also change 'movieId' to a number instead,
+                //using the 'Number()' method
+
+                //'return movie.id === Number(movieId)'
+            
+            //You also don't need to do the 'if' statement
+                //You can just do 'return movie.id == movieId'
+                //The first 'movie' that satisfies that condition will be returned
+            
+        return movie.id == movieId;
     })
 
     if (!result) {
