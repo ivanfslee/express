@@ -7,13 +7,50 @@ const movieDetails = require('../data/movieDetails');
 
 /* GET movie page. */
 //The '/' route refers to '/movie/...' route
-
 router.get('/', function(req, res, next) {
     console.log('movie router works');
     res.render('index', { title: 'Express' });
 });
 
+//The following 4 routes:
+    //Route: GET /movie/top_rated
+
+    //Route: POST /movie/movieId/rating
+
+    //Route: DELETE /movie/movieId/rating
+
+    //Route: GET /movie/movieId
+
+
+
+//Route: GET /movie/top_rated
+router.get('/top_rated', (req, res, next) => {
+    //We will use movieDetails.js 
+    //Each movie has a property called 'vote_average'
+    // We will sort based on that property value
+    //in groups of 20, because we have defined that each page
+    //of movie results contains 20 movies
+
+     let page = req.query.page;
+     if (page === undefined) {
+         page = 1;
+     }
+
+    //sort algo is quick sort or merge sort
+     //Sort based on vote_average - descending
+    let results = movieDetails.sort((a, b) => {return b.vote_average - a.vote_average});
+
+    const indexToStart = (page - 1) * 20;
+    const indexToEnd = indexToStart + 19;
+    res.json(results.slice(indexToStart, indexToEnd));
+});
+
 //Route: GET /movie/movieId
+//This route must go after the other routes that match /movie/<anything>
+//That is because this is a wildcard route
+//So, the /top_rated route matches /:movieId route, which 
+    //is not what we want
+//So, 'top_rated' route must go before this '/:movieId' route
 router.get('/:movieId', (req, res, next) => {
     //Note: movieId is pulled out of the URL using req.params
         //Whenever you pull something out of the URL, it will be a 'string' data type
@@ -65,11 +102,9 @@ router.get('/:movieId', (req, res, next) => {
     }
 });
 
-//Route: GET /movie/top_rated
+//Route: POST /movie/:movieId/rating
 
-//Route: POST /movie/movieId/rating
-
-//Route: DELETE /movie/movieId/rating
+//Route: DELETE /movie/:movieId/rating
 
 module.exports = router;
 

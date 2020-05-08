@@ -27,6 +27,7 @@ const searchRouter = require('./routes/search');
 var app = express();
 app.use(helmet());
 
+//We define middleware to validate apiKey of the user making the request
 app.use((req, res, next) => {
   //In a production environment, we would query the database to
     //check if it is a valid apiKey
