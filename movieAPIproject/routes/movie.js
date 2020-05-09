@@ -5,6 +5,30 @@ const movieDetails = require('../data/movieDetails');
 //Robert Bunch Reference for this file:
     //https://github.com/robertbunch/justExpress/blob/6eb7aae8805d92ea91d42eba828f8e769777cff4/movieApi/routes/movie.js#L37
 
+function isJson(req, res, next) {
+    //Note: if no body is sent in the HTTP request, 
+        // !req.is('application/json') will evaluate to 'null'
+        //So, we must include a body in our HTTP request (in postman)
+    if (!req.is('application/json')) {
+        res.json({msg: 'Content-type must be application/json'})
+    } else {
+        next();
+    }
+}
+
+router.param('movieId', (req, res, next) => {
+    //Update the database with analytics data
+        //or any other logic that will run when
+        //a route with param 'movieId' is hit
+
+    //Another example -
+        //If only certain api_keys are allowed to use 'movieId' routes
+        //That validation logic would go here
+
+    console.log('Someone hit a route that uses the movieId parameter/wildcard');
+    next();
+});
+
 /* GET movie page. */
 //The '/' route refers to '/movie/...' route
 router.get('/', function(req, res, next) {
@@ -103,12 +127,34 @@ router.get('/:movieId', (req, res, next) => {
 });
 
 //Route: POST /movie/:movieId/rating
+router.post('/:movieId/rating', isJson, (req, res, next) => {
+
+    //Rating from the user will come from req.body.rating,
+        //not a query string (req.query.rating)
+        //The rating is coming from a post request 
+    const rating = req.body.rating;
+    console.log('req.body.rating is:', req.body.rating);
+
+    //Here, we use req.get() to get the content-type of the request
+    console.log(req.get('content-type'));
+    
+    console.log('req.body.rating type is:', typeof req.body.rating);
+    if (rating < .5 || rating > 10) {
+        res.json({msg: 'Rating must be greater than .5 and less than 10'});
+    } else {
+        res.json({
+            msg: 'Rating submitted!',
+            // status_code: 200
+        });
+    }
+});
 
 //Route: DELETE /movie/:movieId/rating
+router.delete('/:movieId/rating', isJson, (req, res, next) => {
+    res.json({msg: 'Rating deleted!'});
+});
 
 module.exports = router;
-
-
 
 //app.param() notes for review: (We went over this in 6-301 Lessons)
 
