@@ -879,6 +879,27 @@ const movies = [
       video:false,
       vote_average:6.4,
       vote_count:6574
+    },
+    {  
+      vote_count:6897,
+      id:10193,
+      video:false,
+      vote_average:7.7,
+      title:"Toy Story 2",
+      popularity:13.595,
+      poster_path:"/mMltbSxwEdNE4Cv8QYLpzkHWTDo.jpg",
+      original_language:"en",
+      original_title:"Toy Story 3",
+      genre_ids:[  
+        16,
+        10751,
+        35
+      ],
+      backdrop_path:"/y2qAjM37QgatWeG84DDtwsZuMW.jpg",
+      adult:false,
+      overview:"Woody, Buzz, and the rest of Andy's toys haven't been played with in years. With Andy about to go to college, the gang find themselves accidentally left at a nefarious day care center. The toys must band together to escape and return home to Andy.",
+      release_date:"2010-06-16",
+      most_popular: true
     }
   ]
   module.exports = movies;
