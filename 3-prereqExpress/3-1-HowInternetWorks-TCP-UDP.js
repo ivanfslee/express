@@ -30,8 +30,23 @@
     
     //Node, for the most part handles this
     
-//5 basic levels in every packet
-    // Application Layer - As developers, we will mostly be working here. HTTP, FTP, SSH, SMTP (all these are the various protocols used in this layer)
+//5 basic levels in every packet - ATNLP
+    //TCP/IP Linus Tech Tips 6minute video - https://www.youtube.com/watch?v=PpsEaqJV_A0
+    
+    //Transmission Control Protocol vs User Datagram Protocol
+
+    //TCP vs UDP 5 minute video - https://www.youtube.com/watch?v=uwoD5YsGACg
+        //TCP - is initiated by a 3-way handshake
+            //Connection oriented protocol
+            //TCP guarantees data delivery and that the data arrives in the right order
+        //UDP - known as the 'fire and forget' protocol
+            //Connectionless oriented protocol
+            //UDP does not guarantee data delivery
+            //Because of this less overhead for data delivery,
+            //UDP is faster than TCP
+
+
+    // Application Layer - As developers, we will mostly be working here. HTTP, FTP, SSH, SMTP for email (all these are the various protocols used in this layer)
     // Transport Layer - either UDP or TCP
         //The transport layer and network layer, together form the Internet Protocol suite or TCP/IP
     // Network Layer (sometimes called the internet layer) - IP 
