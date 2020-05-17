@@ -88,6 +88,13 @@
                 //e.g. get method, and the path, and the protocol used
                     // Request start line - get /blog http/1.1
                     // Response start line - http/1.1 404
+                    
+                // The response start line will give you the protocol used and 
+                    //the status code that is returned back to you.
+
+                //The request start line will give you the request type e.g GET/POST/
+                    //The path that was requested e.g. /blog
+                    //and the protocol used e.g. http/1.1
 
             //2. Header - specifies the request or describes the body
                 //It essentially contains meta data
