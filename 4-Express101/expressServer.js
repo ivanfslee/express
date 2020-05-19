@@ -5,7 +5,7 @@
 //'path' is a native module to node JS
 const path = require('path');
 
-//express is a 3rd party module - so you have to run 'npm install express --save'
+//express is a 3rd party node module - so you have to run 'npm install express --save'
 //we run 'npm init' to create a package.json file in this directory
 //then we run 'npm install express --save' 
     //--save adds the module we are installing as a dependency
