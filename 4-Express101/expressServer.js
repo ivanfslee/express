@@ -1,4 +1,4 @@
-//http is a native module - so you don't have to install it
+//http is a native node js module - so you don't have to install it
     //Also, with express we don't need the http module
     //const http = require('http');
 
@@ -6,9 +6,10 @@
 const path = require('path');
 
 //express is a 3rd party node module - so you have to run 'npm install express --save'
-//we run 'npm init' to create a package.json file in this directory
-//then we run 'npm install express --save' 
-    //--save adds the module we are installing as a dependency
+//Run 'npm init' first, before you install any 3rd party node modules
+    //we run 'npm init' to create a package.json file in this directory
+    //then we run 'npm install express --save' 
+        //--save adds the module we are installing as a dependency
 
 const express = require('express'); //our const express contains a function called 'createApplication' that is exported from Express node module
 const app = express(); //our const express is a function, so we want to invoke it, hence the '()' after it. It's invocation is stored in const app
@@ -16,6 +17,11 @@ const app = express(); //our const express is a function, so we want to invoke i
 
 //alternative to lines 13 and 14 is 'const express = require('express')();' 
     //but that is not convention
+
+//if we look in the express node module, we see that the express function - createApplication() -
+    //returns an object called 'app'
+    //'app' has a bunch of associated methods and properties like 'all', 'get', 'use', etc
+    //That is how we use 'app' as a router.
 
 //serve up static files from 'public' folder using 'serve-static' module
 app.use(express.static('public'));
@@ -59,3 +65,8 @@ app.all('*', (req, res) => {
 
 app.listen(3000); //listen method can have a second argument, callback function that runs once
 console.log('The server is listening on port 3000')
+
+//HTTP codes
+    //304 - 'not modified' - in which case, Chrome made a request to express and express said,
+        //the page you requested is unchanged. The page is exactly the same as it was
+        //last time. So it is doing some basic caching for us too.
