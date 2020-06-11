@@ -13,9 +13,9 @@ const path = require('path');
 
 const express = require('express'); //our const express contains a function called 'createApplication' that is exported from Express node module
 const app = express(); //our const express is a function, so we want to invoke it, hence the '()' after it. It's invocation is stored in const app
-    //Line 14 is creating an express application, hence we name the const, 'app'
+    //Line 15 is creating an express application, hence we name the const, 'app'
 
-//alternative to lines 13 and 14 is 'const express = require('express')();' 
+//alternative to lines 14 and 15 is 'const express = require('express')();' 
     //but that is not convention
 
 //if we look in the express node module, we see that the express function - createApplication() -
